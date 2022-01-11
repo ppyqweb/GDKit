@@ -1,0 +1,22 @@
+{
+  "name": "GDKit",
+  "version": "0.1.0",
+  "summary": "A short description of GDKit.",
+  "description": "TODO: Add long description of the pod here.",
+  "homepage": "https://github.com/GDKit/GDKit",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "GDKit": "285282227@qq.com"
+  },
+  "source": {
+    "git": "https://github.com/GDKit/GDKit.git",
+    "tag": "0.1.0"
+  },
+  "platforms": {
+    "ios": "9.0"
+  },
+  "source_files": "GDKit/Classes/**/*"
+}
