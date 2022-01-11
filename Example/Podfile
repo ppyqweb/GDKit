@@ -1,0 +1,13 @@
+use_frameworks!
+
+platform :ios, '9.0'
+
+target 'GDKit_Example' do
+  pod 'GDKit', :path => '../'
+
+  target 'GDKit_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end
