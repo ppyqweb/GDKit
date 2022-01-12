@@ -1,5 +1,5 @@
 PODS:
-  - GDKit (0.1.0)
+  - GDKit (0.4.0)
 
 DEPENDENCIES:
   - GDKit (from `../`)
@@ -9,7 +9,7 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  GDKit: 76eabb8aed05883d7e0fd6aa4d9b6df61b1dec9f
+  GDKit: 2f66b9f9a12cbe2b4a42efdb58a2f59cee2bc57a
 
 PODFILE CHECKSUM: a58c1bbd62b2795161e31036810a53a08a07a921
 

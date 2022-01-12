@@ -10,6 +10,9 @@
 #endif
 #endif
 
+#import "UIColor+GDAdd.h"
+#import "UIFont+GDAdd.h"
+#import "UIView+GDFrame.h"
 
 FOUNDATION_EXPORT double GDKitVersionNumber;
 FOUNDATION_EXPORT const unsigned char GDKitVersionString[];
