@@ -55,7 +55,7 @@ extension UIImage {
         func convertCIImageToUIImage(ciImage:CIImage) -> UIImage {
             let uiImage = UIImage.init(ciImage: ciImage)
             // 注意！！！这里的uiImage的uiImage.cgImage 是nil
-            let cgImage = uiImage.cgImage
+            let _ = uiImage.cgImage //cgImage
             // 注意！！！上面的cgImage是nil，原因如下，官方解释
             // returns underlying CGImageRef or nil if CIImage based
             return uiImage
@@ -65,7 +65,7 @@ extension UIImage {
         func convertCIImageToUIImage(cgImage:CGImage) -> UIImage {
             let uiImage = UIImage.init(cgImage: cgImage)
             // 注意！！！这里的uiImage的uiImage.ciImage 是nil
-            let ciImage = uiImage.ciImage
+            let _ = uiImage.ciImage //ciImage
             // 注意！！！上面的ciImage是nil，原因如下，官方解释
             // returns underlying CIImage or nil if CGImageRef based
             return uiImage

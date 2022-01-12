@@ -9,7 +9,7 @@
 import UIKit
 
 // MARK:- 定义协议
-@objc protocol GDPageTitleViewDelegate : class {
+@objc protocol GDPageTitleViewDelegate : AnyObject {
     
     
     /// 点击标题回调

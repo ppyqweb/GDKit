@@ -1,6 +1,6 @@
 {
   "name": "GDKit",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "summary": "A short description of GDKit",
   "description": "TODO: Add long description of the pod here.",
   "homepage": "https://github.com/ppyqweb/GDKit",
@@ -13,7 +13,7 @@
   },
   "source": {
     "git": "https://github.com/ppyqweb/GDKit.git",
-    "tag": "0.4.0"
+    "tag": "0.5.0"
   },
   "platforms": {
     "ios": "9.0"

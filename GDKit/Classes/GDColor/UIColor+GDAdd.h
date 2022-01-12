@@ -74,7 +74,7 @@ NS_ASSUME_NONNULL_BEGIN
  16进制转颜色
  
  @param hexColor 16进制
- @param alhpa 透明度
+ @param alpha 透明度
  @return 颜色
  */
 + (UIColor *)gd_getColor:(NSString *)hexColor alpha:(CGFloat)alpha;
