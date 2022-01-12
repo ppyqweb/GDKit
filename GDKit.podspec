@@ -8,8 +8,8 @@
 
 Pod::Spec.new do |s|
   s.name             = 'GDKit'
-  s.version          = '0.5.0'
-  s.summary          = 'A short description of GDKit'
+  s.version          = '0.5.1'
+  s.summary          = 'GDKit Tools'
 
 # This description is used to generate tags and improve search results.
 #   * Think: What does it do? Why did you write it? What is the focus?
