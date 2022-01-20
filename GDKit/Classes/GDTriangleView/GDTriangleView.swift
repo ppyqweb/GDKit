@@ -23,7 +23,7 @@ class GDTriangleView: UIView {
         // 设置边框颜色
         //            context?.setStrokeColor(UIColor.green.cgColor)
         // 设置填充颜色
-        context?.setFillColor(UIColor.gd_get(ThemeColor).cgColor)
+        context?.setFillColor(color)
         // 开始画线,需要将起点移动到指定的point
         context?.move(to: CGPoint(x: 0, y: 0))
         // 添加一根线到另一个点 (两点一线)

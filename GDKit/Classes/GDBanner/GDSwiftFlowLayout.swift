@@ -212,7 +212,7 @@ extension GDSwiftFlowLayout {
     fileprivate func initialPreview_fullStyle() {
         self.scrollDirection = .horizontal
         let height = self.collectionView!.frame.height
-        let width = kScreenWidth
+        let width = k_ScreenWidth
         self.itemSize = CGSize.init(width: width, height: height)
         self.minimumLineSpacing = 0;
     }

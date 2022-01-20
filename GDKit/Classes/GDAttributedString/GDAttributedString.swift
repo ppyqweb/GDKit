@@ -26,9 +26,9 @@ class GDAttributedString: NSObject {
     let pointForward:String = String(point)
     
     let attributedStrM : NSMutableAttributedString = NSMutableAttributedString()
-    let symbolStr = NSAttributedString.init(string: "￥", attributes: [NSAttributedString.Key.font : UIFont.gd_fontFor26(), NSAttributedString.Key.foregroundColor : UIColor.gd_get("FD7D28")])
-    let pointFrontStr = NSAttributedString.init(string: pointFront, attributes: [NSAttributedString.Key.font : UIFont.gd_boldFontFor36(), NSAttributedString.Key.foregroundColor : UIColor.gd_get("FD7D28")])
-    let pointForwardStr = NSAttributedString.init(string: pointForward, attributes: [NSAttributedString.Key.font : UIFont.gd_boldFontFor26(), NSAttributedString.Key.foregroundColor : UIColor.gd_get("FD7D28")])
+    let symbolStr = NSAttributedString.init(string: "￥", attributes: [NSAttributedString.Key.font : gd_Font(26), NSAttributedString.Key.foregroundColor : UIColor.gd_get("FD7D28")])
+    let pointFrontStr = NSAttributedString.init(string: pointFront, attributes: [NSAttributedString.Key.font : gd_MediumFont(36), NSAttributedString.Key.foregroundColor : UIColor.gd_get("FD7D28")])
+    let pointForwardStr = NSAttributedString.init(string: pointForward, attributes: [NSAttributedString.Key.font : gd_MediumFont(26), NSAttributedString.Key.foregroundColor : UIColor.gd_get("FD7D28")])
     attributedStrM.append(symbolStr)
     attributedStrM.append(pointFrontStr)
     attributedStrM.append(pointForwardStr)

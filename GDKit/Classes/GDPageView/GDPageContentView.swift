@@ -8,20 +8,20 @@
 
 import UIKit
 
-@objc protocol GDPageContentViewDelegate : AnyObject {
+@objc public protocol GDPageContentViewDelegate : AnyObject {
     func pageContentView(_ contentView : GDPageContentView, progress : CGFloat, sourceIndex : Int, targetIndex : Int)
 }
 
 private let ContentCellID = "GDContentCellID"
 
-class GDPageContentView: UIView {
+open class GDPageContentView: UIView {
     
     // MARK:- 定义属性
     fileprivate var childVcs : [UIViewController]
     fileprivate weak var parentViewController : UIViewController?
     fileprivate var startOffsetX : CGFloat = 0
     fileprivate var isForbidScrollDelegate : Bool = false
-    @objc weak var delegate : GDPageContentViewDelegate?
+    @objc public weak var delegate : GDPageContentViewDelegate?
     
     public var isScrollEnabled: Bool? {
         didSet {
@@ -59,7 +59,7 @@ class GDPageContentView: UIView {
         }()
     
     // MARK:- 自定义构造函数
-    @objc init(frame: CGRect, childVcs : [UIViewController], parentViewController : UIViewController?) {
+    @objc public init(frame: CGRect, childVcs : [UIViewController], parentViewController : UIViewController?) {
         self.childVcs = childVcs
         self.parentViewController = parentViewController
         
@@ -69,7 +69,7 @@ class GDPageContentView: UIView {
         setupUI()
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    public required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
@@ -93,11 +93,11 @@ extension GDPageContentView {
 
 // MARK:- 遵守UICollectionViewDataSource
 extension GDPageContentView : UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return childVcs.count
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         // 1.创建Cell
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ContentCellID, for: indexPath)
         
@@ -117,14 +117,14 @@ extension GDPageContentView : UICollectionViewDataSource {
 // MARK:- 遵守UICollectionViewDelegate
 extension GDPageContentView : UICollectionViewDelegate {
     
-    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+    public func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         
         isForbidScrollDelegate = false
         
         startOffsetX = scrollView.contentOffset.x
     }
     
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    public func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
         // 0.判断是否是点击事件
         if isForbidScrollDelegate { return }
@@ -177,7 +177,7 @@ extension GDPageContentView : UICollectionViewDelegate {
 
 // MARK:- 对外暴露的方法
 extension GDPageContentView {
-    @objc func setCurrentIndex(_ currentIndex : Int) {
+    @objc public func setCurrentIndex(_ currentIndex : Int) {
         
         // 1.记录需要进制执行代理方法
         isForbidScrollDelegate = true

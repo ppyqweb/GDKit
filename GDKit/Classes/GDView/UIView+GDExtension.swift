@@ -9,7 +9,7 @@
 import Foundation
 
 extension UIView {
-    @objc enum ShadowType: Int {
+    @objc public enum ShadowType: Int {
         case all = 0 ///四周
         case top  = 1 ///上方
         case left = 2///左边
@@ -25,7 +25,7 @@ extension UIView {
         shadow(type: type, color: .black, opactiy: 0.1, shadowSize: 4)
     }
     ///阴影设置
-    @objc func shadow(type: ShadowType, color: UIColor,  opactiy: Float, shadowSize: CGFloat) -> Void {
+    @objc public func shadow(type: ShadowType, color: UIColor,  opactiy: Float, shadowSize: CGFloat) -> Void {
         layer.masksToBounds = false;//必须要等于NO否则会把阴影切割隐藏掉
         layer.shadowColor = color.cgColor;// 阴影颜色
         layer.shadowOpacity = opactiy;// 阴影透明度，默认0
@@ -57,4 +57,12 @@ extension UIView {
         layer.path = path.cgPath
         self.layer.mask = layer
     }
+    
+    @objc public func gd_shadow(color: UIColor = UIColor(red: 0.87, green: 0.87, blue: 0.87, alpha: 0.5), offset: CGSize = CGSize(width: 0, height: 1.5), opacity: Float = 1, radius: CGFloat = 3.5) {
+        self.layer.shadowColor = color.cgColor
+        self.layer.shadowOffset = offset
+        self.layer.shadowOpacity = opacity
+        self.layer.shadowRadius = radius
+    }
+    
 }

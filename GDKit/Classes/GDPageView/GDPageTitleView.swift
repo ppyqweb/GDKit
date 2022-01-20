@@ -9,7 +9,7 @@
 import UIKit
 
 // MARK:- 定义协议
-@objc protocol GDPageTitleViewDelegate : AnyObject {
+@objc public protocol GDPageTitleViewDelegate : AnyObject {
     
     
     /// 点击标题回调
@@ -34,10 +34,10 @@ private let kBottomLineColor : (CGFloat, CGFloat, CGFloat) = (240, 240, 240)
 private let kWhiteColor : (CGFloat, CGFloat, CGFloat) = (255, 255, 255)
 
 
-class GDPageTitleView: UIView {
+open class GDPageTitleView: UIView {
     fileprivate var currentIndex : Int = 0
     fileprivate var titles : [String]
-    @objc weak var delegate : GDPageTitleViewDelegate?
+    @objc public weak var delegate : GDPageTitleViewDelegate?
     fileprivate lazy var titleLabels : [UILabel] = [UILabel]()
     fileprivate lazy var scrollView : UIScrollView = {
         let scrollView = UIScrollView()
@@ -89,13 +89,17 @@ class GDPageTitleView: UIView {
     private var isHiddenSeparator: Bool = false
     ///scrollView是否居中显示
     private var isCenter: Bool = false
+    private var itemCornerRadius: CGFloat = 0 ///item圆角
     
     /// 初始化
-    ///
     /// - Parameters:
     ///   - frame: CGRect
     ///   - titles: 标题
-    ///   - params: (滚动条宽度，滚动条高度，字体)
+    ///   - lineWidth: 滚动条宽度
+    ///   - lineHeight: 滚动条高度
+    ///   - lineBottomSpace: 滚动条底部间隔
+    ///   - lineColor: 滚动条颜色
+    ///   - font: 字体
     ///   - cellWidth: cell宽度
     ///   - cellSpace: cell间隔
     ///   - scale: 缩放比例
@@ -107,7 +111,8 @@ class GDPageTitleView: UIView {
     ///   - isHiddenSeparator: 是否隐藏底部分割线
     ///   - titleSelectFont: 标题选中字形
     ///   - isCenter: 是否居中
-    @objc init(frame: CGRect,
+    ///   - itemCornerRadius: item圆角
+    @objc public init(frame: CGRect,
                titles:[String],
                lineWidth: CGFloat,
                lineHeight: CGFloat,
@@ -124,7 +129,8 @@ class GDPageTitleView: UIView {
                currentIndex:Int = 0,
                isHiddenSeparator: Bool = false,
                titleSelectFont: UIFont? = nil,
-               isCenter: Bool = false) {
+               isCenter: Bool = false,
+               itemCornerRadius: CGFloat = 0) {
         self.titles = titles
         self.lineWidth = lineWidth // == 0 ? 50 : lineWidth
         self.lineHeight = lineHeight // == 0 ? 2 : lineHeight
@@ -166,6 +172,7 @@ class GDPageTitleView: UIView {
         
         self.isHiddenSeparator = isHiddenSeparator
         self.isCenter = isCenter
+        self.itemCornerRadius = itemCornerRadius
         if titles.count > currentIndex && currentIndex >= 0 {
             self.currentIndex = currentIndex
         }
@@ -179,7 +186,7 @@ class GDPageTitleView: UIView {
         setupUI()
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    public required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
@@ -247,6 +254,11 @@ extension GDPageTitleView {
             contentWidth = labelX
             titleLabels.append(label)
             
+            if itemCornerRadius > 0 {
+                label.layer.cornerRadius = itemCornerRadius
+                label.layer.masksToBounds = true
+            }
+
             // 5.给Label添加手势
             label.isUserInteractionEnabled = true
             let tapGes = UITapGestureRecognizer(target: self, action: #selector(self.titleLabelClick(_:)))
@@ -360,7 +372,7 @@ extension GDPageTitleView {
 
 // MARK:- 对外暴露的方法
 extension GDPageTitleView {
-    @objc func setTitleWithProgress(_ progress : CGFloat, sourceIndex : Int, targetIndex : Int) {
+    @objc public func setTitleWithProgress(_ progress : CGFloat, sourceIndex : Int, targetIndex : Int) {
         
         let maxScale = 1 + scale
         

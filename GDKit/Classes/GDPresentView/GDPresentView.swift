@@ -22,7 +22,7 @@ class GDPresentView: UIView {
         //        self.keyVC = self.keyWindow.rootViewController;
         //        self.frame = self.keyWindow.bounds;
         self.animated = animated
-        self.frame = CGRect(x: 0, y: 0, width: kScreenWidth, height: kScreenHeight)
+        self.frame = CGRect(x: 0, y: 0, width: k_ScreenWidth, height: k_ScreenHeight)
         self.backgroundColor = UIColor.black.withAlphaComponent(0.4)
         UIApplication.shared.keyWindow?.addSubview(self)
         
