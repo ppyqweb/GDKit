@@ -12,7 +12,7 @@ extension UIButton {
     
     public class func gd_button(
         title:String? = nil,
-        color:UIColor? = nil,
+//        color:UIColor? = nil,
         font:UIFont? = nil,
         normalColor: UIColor? = nil,
         selectColor: UIColor? = nil,
@@ -28,8 +28,8 @@ extension UIButton {
         btn.setTitle(title, for: .highlighted)
         btn.setTitle(title, for: .selected)
         btn.titleLabel?.font = font
-        btn.setTitleColor(color, for: .normal)
-        btn.setTitleColor(color, for: .highlighted)
+//        btn.setTitleColor(color, for: .normal)
+//        btn.setTitleColor(color, for: .highlighted)
         
         //btn.setTitle("登录/注册", for: .normal) //下一步
         //btn.setTitle("登录/注册", for: .selected)

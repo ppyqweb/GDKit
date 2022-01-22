@@ -58,11 +58,20 @@ extension UIView {
         self.layer.mask = layer
     }
     
+    ///阴影
     @objc public func gd_shadow(color: UIColor = UIColor(red: 0.87, green: 0.87, blue: 0.87, alpha: 0.5), offset: CGSize = CGSize(width: 0, height: 1.5), opacity: Float = 1, radius: CGFloat = 3.5) {
         self.layer.shadowColor = color.cgColor
         self.layer.shadowOffset = offset
         self.layer.shadowOpacity = opacity
         self.layer.shadowRadius = radius
+    }
+    
+    ///内阴影
+    @objc public func gd_innerShadow() {
+        self.layer.shadowColor = UIColor(red: 0.87, green: 0.87, blue: 0.87, alpha: 0.5).cgColor
+        self.layer.shadowOffset = CGSize(width: 0, height: 0)
+        self.layer.shadowOpacity = 1
+        self.layer.shadowRadius = 3
     }
     
 }
