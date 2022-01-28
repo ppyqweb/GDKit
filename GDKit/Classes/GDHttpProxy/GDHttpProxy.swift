@@ -36,17 +36,32 @@ open class HttpProxy {
         
     }()
     
-    public func post(url:String,parameters:Dictionary<String, Any>, success: @escaping OnSuccessBlock, failed: @escaping OnErrorBlock){
+    public func post(url:String,parameters:Dictionary<String, Any>, formData: Bool = false, success: @escaping OnSuccessBlock, failed: @escaping OnErrorBlock){
         
-        //表单请求
-        self.formDataRequest(method: .post, url: url, parameters: parameters, success: success, failed: failed)
-        //json请求
-        //self.request(method: .post, url: url, parameters: parameters, encoding: JSONEncoding.default, success: success, failed: failed)
+        if formData == true {
+            //表单请求
+            self.formDataRequest(method: .post, url: url, parameters: parameters, success: success, failed: failed)
+        } else {
+            //json请求
+            self.request(method: .post, url: url, parameters: parameters, encoding: JSONEncoding.default, success: success, failed: failed)
+        }
     }
     
     public func get(url:String,parameters:Dictionary<String, Any>, success: @escaping OnSuccessBlock, failed: @escaping OnErrorBlock) {
         self.request(method: .get, url: url, parameters: parameters, encoding: URLEncoding.default, success: success, failed: failed)
     }
+    
+    /*
+    public func getBody(url:String,parameters:Dictionary<String, Any>, success: @escaping OnSuccessBlock, failed: @escaping OnErrorBlock) {
+        self.requestBody(method: .get, url: url, parameters: parameters, encoding: URLEncoding.default, success: success, failed: failed)
+    }
+    
+    func requestBody(method: HTTPMethod, url:String,parameters:Dictionary<String, Any>, encoding: ParameterEncoding, success: @escaping OnSuccessBlock, failed: @escaping OnErrorBlock) {
+        manager.request(url, method: method, parameters: parameters, encoding: URLEncoding.httpBody, headers: headers).responseJSON { response in
+            self.dataProcess(response: response, parameters: parameters, success: success, failed: failed)
+        }
+    }
+     */
     
     func request(method: HTTPMethod, url:String,parameters:Dictionary<String, Any>, encoding: ParameterEncoding, success: @escaping OnSuccessBlock, failed: @escaping OnErrorBlock) {
 

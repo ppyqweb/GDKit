@@ -10,15 +10,15 @@ import Foundation
 
 // MARK: - UI相关
 ///状态栏高度
-public let k_StatusBarHeight = Float(UIApplication.shared.statusBarFrame.size.height)
+public let k_StatusBarHeight = CGFloat(UIApplication.shared.statusBarFrame.size.height)
 ///导航条高度
-public let k_NavigationHeight: Float = 44
+public let k_NavigationHeight: CGFloat = 44
 ///标签栏高度
-public let k_TabBarHeight: Float = (k_StatusBarHeight > 20 ? 83 : 49)
+public let k_TabBarHeight: CGFloat = (k_StatusBarHeight > 20 ? 83 : 49)
 ///安全域高度
-public let k_SafeHeight: Float = (k_StatusBarHeight > 20 ? 34 : 0)
+public let k_SafeHeight: CGFloat = (k_StatusBarHeight > 20 ? 34 : 0)
 ///顶部总高度
-public let k_TopHeight: Float = k_StatusBarHeight + k_NavigationHeight
+public let k_TopHeight: CGFloat = k_StatusBarHeight + k_NavigationHeight
 ///屏幕宽度
 public let k_ScreenWidth = UIScreen.main.bounds.size.width
 ///屏幕高度
