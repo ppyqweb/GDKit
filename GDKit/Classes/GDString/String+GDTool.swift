@@ -49,7 +49,7 @@ extension String {
     ///四舍五入,始终有小数显示2位小数(百分比专用)
     public func gd_roundedDecimalRatio() -> String {
         var num = Double(self.replacingOccurrences(of: "-", with: "")) ?? 0
-        num = (num * 1.0).rounded()/100.0
+        num = (num * 100.0).rounded()/100.0
         return String.init(format: "%.2f", num) + "%"
     }
     
@@ -82,5 +82,42 @@ extension String {
         return String.init(format: "%.2f", num)
     }
     
+    
+    ///数据源万元单位
+    public func gd_totalMv() -> String {
+        var num = (Double(self) ?? 0) * 10000 //单位元
+        if num / 1000000000000 > 1 {
+            num = num / 1000000000000
+            num = (num * 100.0).rounded()/100.0
+            return String.init(format: "%.2f万亿", num)
+        } else if num / 100000000 > 1 {
+            num = num / 100000000
+            num = (num * 100.0).rounded()/100.0
+            return String.init(format: "%.2f亿", num)
+        } else if num / 10000 > 1 {
+            num = num / 10000
+            num = (num * 100.0).rounded()/100.0
+            return String.init(format: "%.2f万", num)
+        }
+        num = (num * 100.0).rounded()/100.0
+        return String.init(format: "%.2f", num)
+    }
+    
+    
+    /// 计算文字的宽高
+    ///
+    /// - Parameters:
+    ///   - font: 字体大小
+    ///   - constraintRect: 大小范围
+    /// - Returns: 宽高
+    public func gd_sizeWithConstrained(_ font: UIFont,
+                                constraintRect: CGSize = CGSize(width: CGFloat.greatestFiniteMagnitude, height: CGFloat.greatestFiniteMagnitude)) -> CGSize {
+        let boundingBox = self.boundingRect(
+            with: constraintRect,
+            options: NSStringDrawingOptions.usesLineFragmentOrigin,
+            attributes: [NSAttributedString.Key.font: font],
+            context: nil)
+        return boundingBox.size
+    }
     
 }

@@ -231,8 +231,8 @@ extension GDPageTitleView {
         // 0.确定label的一些frame的值
         //        let labelW : CGFloat = frame.width / CGFloat(titles.count > count ? count : titles.count)
         //        let labelW : CGFloat = 120
-        let labelH : CGFloat = frame.height - lineHeight + 1;
-        let labelY : CGFloat = -1
+        let labelH : CGFloat = frame.height - lineHeight;
+        let labelY : CGFloat = 0
         var labelX : CGFloat = cellSpace
         
         for (index, title) in titles.enumerated() {
