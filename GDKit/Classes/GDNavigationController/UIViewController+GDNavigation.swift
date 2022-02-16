@@ -16,6 +16,8 @@ extension UIViewController {
         self.gd_setupNavigationAttributed()
         self.gd_setupTitleAttributed()
         self.gd_setupLeftButton(title: "", color: .black)
+        self.gd_setupPopGesture()
+        self.gd_openPopGesture()
     }
     
     
@@ -88,6 +90,29 @@ extension UIViewController {
         
     }
     
+    /**
+     启动系统手势返回
+     */
+    @objc func gd_setupPopGesture() {
+        self.navigationController?.interactivePopGestureRecognizer?.delegate = self
+    }
+    
+    /**
+     打开系统手势返回
+     */
+    @objc func gd_openPopGesture() {
+        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+    }
+    
+    /**
+     关闭系统手势返回
+     */
+    @objc func gd_closePopGesture() {
+        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
+    }
     
 }
 
+extension UIViewController: UIGestureRecognizerDelegate {
+    
+}

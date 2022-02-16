@@ -64,7 +64,7 @@ extension String {
     
     ///数据源千元单位
     public func gd_amount() -> String {
-        var num = (Double(self) ?? 0) * 1000 //单位元
+        var num = (Double(self) ?? 0) //单位元
         if num / 1000000000000 > 1 {
             num = num / 1000000000000
             num = (num * 100.0).rounded()/100.0
