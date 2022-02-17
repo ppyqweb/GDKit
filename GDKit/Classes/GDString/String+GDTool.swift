@@ -62,9 +62,29 @@ extension String {
         }
     }
     
+    ///数据源元单位
+    public func gd_vol() -> String {
+        var num = (Double(self) ?? 0) //单位元
+        if num / 1000000000000 > 1 {
+            num = num / 1000000000000
+            num = (num * 100.0).rounded()/100.0
+            return String.init(format: "%.2f万亿", num)
+        } else if num / 100000000 > 1 {
+            num = num / 100000000
+            num = (num * 100.0).rounded()/100.0
+            return String.init(format: "%.2f亿", num)
+        } else if num / 10000 > 1 {
+            num = num / 10000
+            num = (num * 100.0).rounded()/100.0
+            return String.init(format: "%.2f万", num)
+        }
+        num = (num * 100.0).rounded()/100.0
+        return String.init(format: "%.2f", num)
+    }
+    
     ///数据源千元单位
     public func gd_amount() -> String {
-        var num = (Double(self) ?? 0) //单位元
+        var num = (Double(self) ?? 0) * 1000 //单位元
         if num / 1000000000000 > 1 {
             num = num / 1000000000000
             num = (num * 100.0).rounded()/100.0

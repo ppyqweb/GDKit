@@ -67,17 +67,17 @@ extension UIViewController {
         self.navigationController?.popViewController(animated: true)
     }
     
-    func gd_setupRightButton(title: String, color: UIColor, image: UIImage) {
-        
-        let image = image.withRenderingMode(.alwaysOriginal)
-        
+    public func gd_setupRightButton(title: String? = nil, color: UIColor? = nil, image: UIImage? = nil) {
         let rightButton = UIButton(type: .custom)
         rightButton.frame = CGRect(x: 0, y: 0, width: 70, height: 44)
         rightButton.titleLabel?.font = gd_Font(28)
-        rightButton.addTarget(self, action: #selector(onClickedNavRight), for: .touchUpInside)
+        rightButton.addTarget(self, action: #selector(clickedNavRight), for: .touchUpInside)
         rightButton.setTitle(title, for: .normal)
         rightButton.setTitleColor(color, for: .normal)
-        rightButton.setImage(image, for: .normal)
+        if let image = image {
+            let image = image.withRenderingMode(.alwaysOriginal)
+            rightButton.setImage(image, for: .normal)
+        }
         rightButton.contentHorizontalAlignment = .right
         let rightItem = UIBarButtonItem(customView: rightButton)
         
@@ -86,9 +86,13 @@ extension UIViewController {
         self.navigationItem.rightBarButtonItems = [negativeSeperator,rightItem]
     }
     
-    @objc func onClickedNavRight() {
-        
+    @objc func clickedNavRight() {
+        let selector = NSSelectorFromString("onClickedNavRight")
+        if self.responds(to: selector) == true {
+            self.performSelector(onMainThread: selector, with: nil, waitUntilDone: false)
+        }
     }
+
     
     /**
      启动系统手势返回
