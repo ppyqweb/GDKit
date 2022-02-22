@@ -17,8 +17,8 @@ extension UIView {
         case bottom = 4///下方
     }
     ///默认设置：黑色阴影, 阴影所占视图的比例
-   // func shadow(_ type: ShadowType, percent: Float) {
-       // shadow(type: type, color: .black, opactiy: 0.4, //shadowSize: 4)
+    // func shadow(_ type: ShadowType, percent: Float) {
+    // shadow(type: type, color: .black, opactiy: 0.4, //shadowSize: 4)
     //}
     ///默认设置：黑色阴影
     @objc func shadow(_ type: ShadowType) {
@@ -58,8 +58,8 @@ extension UIView {
         self.layer.mask = layer
     }
     
-    ///阴影
-    @objc public func gd_shadow(color: UIColor = UIColor(red: 0.87, green: 0.87, blue: 0.87, alpha: 0.5), offset: CGSize = CGSize(width: 0, height: 1.5), opacity: Float = 1, radius: CGFloat = 3.5) {
+    ///阴影 0.5
+    @objc public func gd_shadow(color: UIColor = UIColor(red: 0.87, green: 0.87, blue: 0.87, alpha: 0.7), offset: CGSize = CGSize(width: 0, height: 1.5), opacity: Float = 1, radius: CGFloat = 3.5) {
         self.layer.shadowColor = color.cgColor
         self.layer.shadowOffset = offset
         self.layer.shadowOpacity = opacity

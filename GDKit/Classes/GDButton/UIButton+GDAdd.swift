@@ -12,7 +12,7 @@ extension UIButton {
     
     public class func gd_button(
         title:String? = nil,
-//        color:UIColor? = nil,
+        selectTitle:String? = nil,
         font:UIFont? = nil,
         normalColor: UIColor? = nil,
         selectColor: UIColor? = nil,
@@ -23,26 +23,33 @@ extension UIButton {
         bgLightNormalColor: UIColor? = nil,
         bgLightSelectColor: UIColor? = nil) -> UIButton {
             
-        let btn = UIButton(type: .custom)
-        btn.setTitle(title, for: .normal)
-        btn.setTitle(title, for: .highlighted)
-        btn.setTitle(title, for: .selected)
-        btn.titleLabel?.font = font
-//        btn.setTitleColor(color, for: .normal)
-//        btn.setTitleColor(color, for: .highlighted)
-        
-        //btn.setTitle("登录/注册", for: .normal) //下一步
-        //btn.setTitle("登录/注册", for: .selected)
-        
-        btn.setTitleColor(normalColor, for: .normal)
-        btn.setTitleColor(selectColor, for: .selected)
-        btn.setBackgroundImage(bgNormalColor?.imageWithColor(), for: .normal)
-        btn.setBackgroundImage(bgSelectColor?.imageWithColor(), for: .selected)
-        btn.setTitleColor(lightNormalColor, for: [.highlighted,.normal])
-        btn.setTitleColor(lightSelectColor, for: [.highlighted,.selected])
-        btn.setBackgroundImage(bgLightNormalColor?.imageWithColor(), for: [.highlighted,.normal])
-        btn.setBackgroundImage(bgLightSelectColor?.imageWithColor(), for: [.highlighted,.selected])
-        return btn
-    }
+            let btn = UIButton(type: .custom)
+            btn.titleLabel?.font = font
+            
+            btn.setTitle(title, for: .normal)
+            btn.setTitle(selectTitle, for: .selected)
+            btn.setTitle(title, for: [.highlighted,.normal])
+            btn.setTitle(selectTitle, for: [.highlighted,.selected])
+            
+            
+            btn.setTitleColor(normalColor, for: .normal)
+            btn.setTitleColor(selectColor, for: .selected)
+            btn.setTitleColor(lightNormalColor, for: [.highlighted,.normal])
+            btn.setTitleColor(lightSelectColor, for: [.highlighted,.selected])
+            
+            
+            btn.setBackgroundImage(bgNormalColor?.imageWithColor(), for: .normal)
+            btn.setBackgroundImage(bgSelectColor?.imageWithColor(), for: .selected)
+            btn.setBackgroundImage(bgLightNormalColor?.imageWithColor(), for: [.highlighted,.normal])
+            if bgLightNormalColor == nil {
+                btn.setBackgroundImage(bgNormalColor?.withAlphaComponent(0.9).imageWithColor(), for: [.highlighted,.normal])
+            }
+            btn.setBackgroundImage(bgLightSelectColor?.imageWithColor(), for: [.highlighted,.selected])
+            if bgLightSelectColor == nil {
+                btn.setBackgroundImage(bgSelectColor?.withAlphaComponent(0.9).imageWithColor(), for: [.highlighted,.selected])
+            }
+            
+            return btn
+        }
     
 }
