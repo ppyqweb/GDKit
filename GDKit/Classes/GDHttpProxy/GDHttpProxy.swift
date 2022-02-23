@@ -110,6 +110,10 @@ open class HttpProxy {
                     result = GDResultModel.deserialize(from: value) ?? result
                     if value["type"] as? String ?? "" == "SUCCESS" {
                         result.type = .success
+                    } else if let status = value["status"] as? Int {
+                        result.code = status
+                        let msg = value["error"] as? String ?? ""
+                        result.message = msg + " " + String(status)
                     }
                 }
                 ///具体如何解析json内容可看下方“响应处理”部分
@@ -185,7 +189,7 @@ open class HttpProxy {
             break
         }
         //TODO: - 测试
-        return msg + String(code)
+        return msg + " " + String(code)
     }
     
     
