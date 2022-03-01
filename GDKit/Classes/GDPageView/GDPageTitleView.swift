@@ -194,6 +194,14 @@ open class GDPageTitleView: UIView {
         scrollLine.isHidden = true
     }
     
+    public func setScrollLine(isHidden: Bool) {
+        scrollLine.isHidden = isHidden
+    }
+    
+    public func setNone() {
+        self.titleLabelClick(UITapGestureRecognizer())
+    }
+    
     var tapGesList = [UITapGestureRecognizer]()
     @objc public func moveToLast() {
         if let tapGes = tapGesList.last {
@@ -310,7 +318,7 @@ extension GDPageTitleView {
     @objc fileprivate func titleLabelClick(_ tapGes : UITapGestureRecognizer) {
         
         // 0.获取当前Label
-        guard let currentLabel = tapGes.view as? UILabel else { return }
+        let currentLabel = tapGes.view as? UILabel ?? UILabel()
         
         // 2.获取之前的Label
         let oldLabel = titleLabels[currentIndex]

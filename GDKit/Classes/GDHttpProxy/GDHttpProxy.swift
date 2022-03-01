@@ -47,6 +47,17 @@ open class HttpProxy {
         }
     }
     
+    public func delete(url:String,parameters:Dictionary<String, Any>, formData: Bool = false, success: @escaping OnSuccessBlock, failed: @escaping OnErrorBlock){
+        
+        if formData == true {
+            //表单请求
+            self.formDataRequest(method: .delete, url: url, parameters: parameters, success: success, failed: failed)
+        } else {
+            //json请求
+            self.request(method: .delete, url: url, parameters: parameters, encoding: JSONEncoding.default, success: success, failed: failed)
+        }
+    }
+    
     public func get(url:String,parameters:Dictionary<String, Any>, success: @escaping OnSuccessBlock, failed: @escaping OnErrorBlock) {
         self.request(method: .get, url: url, parameters: parameters, encoding: URLEncoding.default, success: success, failed: failed)
     }

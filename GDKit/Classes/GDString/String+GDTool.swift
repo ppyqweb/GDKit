@@ -82,6 +82,7 @@ extension String {
         return String.init(format: "%.2f", num)
     }
     
+    /*
     ///数据源千元单位
     public func gd_amount() -> String {
         var num = (Double(self) ?? 0) * 1000 //单位元
@@ -122,6 +123,7 @@ extension String {
         num = (num * 100.0).rounded()/100.0
         return String.init(format: "%.2f", num)
     }
+    */
     
     
     /// 计算文字的宽高
