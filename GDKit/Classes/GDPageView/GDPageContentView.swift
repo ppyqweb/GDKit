@@ -35,14 +35,19 @@ open class GDPageContentView: UIView {
         collectionView.isScrollEnabled = false
     }
     
-    // MARK:- 懒加载属性
-    fileprivate lazy var collectionView : UICollectionView = {[weak self] in
-        // 1.创建layout
+    fileprivate func getLayout() -> UICollectionViewFlowLayout {
         let layout = UICollectionViewFlowLayout()
-        layout.itemSize = (self?.bounds.size)!
+        layout.itemSize = self.bounds.size
         layout.minimumLineSpacing = 0
         layout.minimumInteritemSpacing = 0
         layout.scrollDirection = .horizontal
+        return layout
+    }
+    
+    // MARK:- 懒加载属性
+    fileprivate lazy var collectionView : UICollectionView = {[weak self] in
+        // 1.创建layout
+        let layout = self?.getLayout() ?? UICollectionViewFlowLayout()
         
         // 2.创建UICollectionView
         let collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: layout)
@@ -87,6 +92,12 @@ extension GDPageContentView {
         addSubview(collectionView)
         collectionView.frame = bounds
     }
+    
+    public func refreshRect() {
+        collectionView.frame = bounds
+        collectionView.collectionViewLayout = self.getLayout()
+    }
+    
 }
 
 

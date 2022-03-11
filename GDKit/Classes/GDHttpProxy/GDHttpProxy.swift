@@ -128,7 +128,7 @@ open class HttpProxy {
                     }
                 }
                 ///具体如何解析json内容可看下方“响应处理”部分
-                printLog("返回数据---->  \(String(describing: response.value))")
+                printLog("返回数据---->  \(String(describing: response.value).unicodeStr)")
             }
             if result.message.count == 0 {
                 result.message = self.errorMsg(result.code)
@@ -252,4 +252,22 @@ public class GDResultModel: HandyJSON {
     public var type: GDResultType     = .failure //"SUCCESS","FAIL"
     
     public required init() {}
+}
+
+
+extension String {
+    ///Unicode 转 中文
+    var unicodeStr:String {
+        let tempStr1 = self.replacingOccurrences(of: "\\u", with: "\\U")
+        let tempStr2 = tempStr1.replacingOccurrences(of: "\"", with: "\\\"")
+        let tempStr3 = "\"".appending(tempStr2).appending("\"")
+        let tempData = tempStr3.data(using: String.Encoding.utf8)
+        var returnStr:String = ""
+        do {
+            returnStr = try PropertyListSerialization.propertyList(from: tempData!, options: [.mutableContainers], format: nil) as! String
+        } catch {
+            print(error)
+        }
+        return returnStr.replacingOccurrences(of: "\\r\\n", with: "\n")
+    }
 }
