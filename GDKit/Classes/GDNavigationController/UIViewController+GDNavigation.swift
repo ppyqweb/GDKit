@@ -67,10 +67,10 @@ extension UIViewController {
         self.navigationController?.popViewController(animated: true)
     }
     
-    public func gd_setupRightButton(title: String? = nil, color: UIColor? = nil, image: UIImage? = nil) {
+    public func gd_setupRightButton(title: String? = nil, color: UIColor? = nil, image: UIImage? = nil, font: UIFont = gd_BoldFont(16)) {
         let rightButton = UIButton(type: .custom)
         rightButton.frame = CGRect(x: 0, y: 0, width: 70, height: 44)
-        rightButton.titleLabel?.font = gd_Font(28)
+        rightButton.titleLabel?.font = font
         rightButton.addTarget(self, action: #selector(clickedNavRight), for: .touchUpInside)
         rightButton.setTitle(title, for: .normal)
         rightButton.setTitleColor(color, for: .normal)
