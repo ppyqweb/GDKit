@@ -48,7 +48,7 @@ extension UIViewController {
         let leftButton = UIButton(type: .custom)
         leftButton.frame = CGRect(x: 0, y: 0, width: 44, height: 44)
         leftButton.titleLabel?.font = gd_Font(16)
-        leftButton.addTarget(self, action: #selector(onCallBackAction), for: .touchUpInside)
+        leftButton.addTarget(self, action: #selector(callBackAction), for: .touchUpInside)
         leftButton.setTitle(title, for: .normal)
         leftButton.setTitleColor(color, for: .normal)
         leftButton.setImage(image, for: .normal)
@@ -63,8 +63,13 @@ extension UIViewController {
     
     
     ///返回按钮响应
-    @objc func onCallBackAction() {
-        self.navigationController?.popViewController(animated: true)
+    @objc func callBackAction() {
+        let selector = NSSelectorFromString("onCallBackAction")
+        if self.responds(to: selector) == true {
+            self.performSelector(onMainThread: selector, with: nil, waitUntilDone: false)
+        } else {
+            self.navigationController?.popViewController(animated: true)
+        }
     }
     
     public func gd_setupRightButton(title: String? = nil, color: UIColor? = nil, image: UIImage? = nil, font: UIFont = gd_BoldFont(16)) {
