@@ -8,9 +8,9 @@
 
 import Foundation
 
-class GDDateHelper {
-
-    static let shared = GDDateHelper()
+open class GDDateHelper {
+    
+    public static let shared = GDDateHelper()
     
     private let dateFormatter: DateFormatter
     
@@ -25,8 +25,8 @@ class GDDateHelper {
     ///   - date: 时间
     ///   - dateFormat: 时间格式
     /// - Returns: 字符串
-    func dateConvertString(date: Date, dateFormat: String = "yyyy-MM-dd HH:mm:ss") -> String {
-
+    public func dateConvertString(date: Date, dateFormat: String = "yyyy-MM-dd HH:mm:ss") -> String {
+        
         dateFormatter.dateFormat = dateFormat
         let sourceTimeZone = NSTimeZone.system
         dateFormatter.timeZone = sourceTimeZone
@@ -57,6 +57,14 @@ class GDDateHelper {
         dateFormatter.dateFormat = dateFormat
         let date = dateFormatter.date(from: string)
         return date ?? Date()
+    }
+    
+    public func gd_stringConvertDate(string: String, dateFormat: String = "yyyy-MM-dd HH:mm:ss") -> Date {
+        var dateFormat = dateFormat
+        if string.components(separatedBy: " ").count == 1 {
+            dateFormat = dateFormat.components(separatedBy: " ").first ?? dateFormat
+        }
+        return self.stringConvertDate(string: string, dateFormat: dateFormat)
     }
     
     /// 时间戳转换成 时、分、秒
@@ -95,6 +103,14 @@ class GDDateHelper {
         format.dateFormat = dateFormat
         let date = format.date(from: timeStr)
         return date?.timeIntervalSince1970 ?? 0
+    }
+    
+    public func gd_timeStrChangeTotimeInterval(timeStr: String, dateFormat: String = "yyyy-MM-dd HH:mm:ss") -> TimeInterval {
+        var dateFormat = dateFormat
+        if timeStr.components(separatedBy: " ").count == 1 {
+            dateFormat = dateFormat.components(separatedBy: " ").first ?? dateFormat
+        }
+        return self.timeStrChangeTotimeInterval(timeStr: timeStr, dateFormat: dateFormat)
     }
     
     func isExpired(time: String) -> Bool {
@@ -146,7 +162,7 @@ class GDDateHelper {
         let startOfMonth = calendar.date(from: components)!
         return startOfMonth
     }
-     
+    
     //本月结束日期
     func endOfCurrentMonth(returnEndTime:Bool = false) -> Date {
         let calendar = NSCalendar.current
@@ -157,14 +173,14 @@ class GDDateHelper {
         } else {
             components.day = -1
         }
-         
+        
         let endOfMonth =  calendar.date(byAdding: components, to: startOfCurrentMonth())!
         return endOfMonth
     }
     
     /// 获取上几个月的时间
     func getLastMonth(num : Int, dateFormat:String) -> String {
-        let curDate = dateLocal(date: Date()) 
+        let curDate = dateLocal(date: Date())
         let formater = DateFormatter()
         formater.dateFormat = dateFormat
         
