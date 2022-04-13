@@ -25,6 +25,8 @@ public let k_ScreenWidth = UIScreen.main.bounds.size.width
 public let k_ScreenHeight = UIScreen.main.bounds.size.height
 ///宽度比
 public let k_ScreenWidthScale = k_ScreenWidth/375.0;
+///宽度比
+public let k_ScreenScale = k_ScreenWidth/390.0;
 /// 不一定在最前面，像UIWAlert,键盘等
 public let k_KeyWindow = UIApplication.shared.keyWindow
 

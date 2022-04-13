@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 extension UIView {
     @objc public enum ShadowType: Int {
@@ -72,6 +73,55 @@ extension UIView {
         self.layer.shadowOffset = CGSize(width: 0, height: 0)
         self.layer.shadowOpacity = 1
         self.layer.shadowRadius = 3
+    }
+    
+    ///渐变颜色(frame需要有值)
+    @objc public func gd_gradient(_ type: ShadowType = .left, colors: [UIColor], locations: [NSNumber]? = nil) {
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.frame = self.bounds
+        
+        //设置颜色
+        var cgColors: [CGColor] = []
+        for color in colors {
+            cgColors.append(color.cgColor)
+        }
+        gradientLayer.colors = cgColors
+        
+        //设置占比
+        if locations == nil {
+            let num = 1.0/(Double(colors.count)-1.0)
+            var locations: [NSNumber] = []
+            for i in 0..<colors.count {
+                locations.append(NSNumber(value: num*Double(i)))
+            }
+            gradientLayer.locations = locations
+        } else {
+            gradientLayer.locations = locations
+        }
+        
+        //设置位置
+        switch type {
+        case .all:
+            gradientLayer.startPoint = CGPoint(x: 0.5, y: 0.5)
+            gradientLayer.endPoint = CGPoint(x: 0.5, y: 0.5)
+        case .top:
+            gradientLayer.startPoint = CGPoint(x: 0.5, y: 0)
+            gradientLayer.endPoint = CGPoint(x: 0.5, y: 1)
+            break
+        case .left:
+            gradientLayer.startPoint = CGPoint(x: 0, y: 0.5)
+            gradientLayer.endPoint = CGPoint(x: 1, y: 0.5)
+            break
+        case .right:
+            gradientLayer.startPoint = CGPoint(x: 1, y: 0.5)
+            gradientLayer.endPoint = CGPoint(x: 0, y: 0.5)
+            break
+        case .bottom:
+            gradientLayer.startPoint = CGPoint(x: 0.5, y: 1)
+            gradientLayer.endPoint = CGPoint(x: 0.5, y: 0)
+            break
+        }
+        self.layer.addSublayer(gradientLayer)
     }
     
 }

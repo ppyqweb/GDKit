@@ -97,7 +97,7 @@ extension UIViewController {
             self.performSelector(onMainThread: selector, with: nil, waitUntilDone: false)
         }
     }
-
+    
     
     /**
      启动系统手势返回
@@ -118,6 +118,24 @@ extension UIViewController {
      */
     @objc func gd_closePopGesture() {
         self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
+    }
+    
+    ///修改导航栏背景色(全局)
+    public func gd_navBackgroundColor(_ color: UIColor) {
+        self.navigationController?.view.backgroundColor = color
+        
+        //解决iOS13后backgroundColor设置无效的问题，参考https://developer.apple.com/forums/thread/682420
+        if #available(iOS 13.0, *) {
+            let newAppearance = UINavigationBarAppearance()
+            newAppearance.configureWithOpaqueBackground()
+            newAppearance.backgroundColor = color
+            newAppearance.shadowImage = UIImage()
+            newAppearance.shadowColor = nil
+            //newAppearance.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.red, NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20, weight: .medium)]
+            let appearance = UINavigationBar.appearance()
+            appearance.standardAppearance = newAppearance
+            appearance.scrollEdgeAppearance = appearance.standardAppearance
+        }
     }
     
 }
