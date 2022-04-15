@@ -11,6 +11,8 @@ import Alamofire
 import HandyJSON
 import Accelerate
 
+public let kGDNotifactionLogout = "kGDNotifactionLogout"
+
 open class HttpProxy {
     public static let shared = HttpProxy()
     
@@ -132,6 +134,11 @@ open class HttpProxy {
             }
             if result.message.count == 0 {
                 result.message = self.errorMsg(result.code)
+            }
+            if result.code == 99003 ||
+                result.code == 99004 {
+                //未登录状态,退回登录页
+                NotificationCenter.default.post(name: NSNotification.Name(kGDNotifactionLogout), object: self)
             }
             success(result)
             
