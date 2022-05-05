@@ -17,10 +17,10 @@ import Foundation
 ///   - method: 所在方法
 ///   - line: 所在行
 public func printLog<T>(_ message: T, file: String = #file, method: String = #function, line: Int = #line) {
-    //    #if DEBUG
-    //    print("\((file as NSString).lastPathComponent)[\(line)],\(method):\(message)")
-    //    #endif
-    print("\((file as NSString).lastPathComponent)[\(line)],\(method):\(message)")
+#if DEBUG
+    //print("\((file as NSString).lastPathComponent)[\(line)],\(method):\(message)")
+    print(message)
+#endif
 }
 
 public func callPhone(_ phoneStr: String) {
