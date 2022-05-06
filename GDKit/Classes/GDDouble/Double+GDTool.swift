@@ -44,18 +44,18 @@ extension Double {
         }
     }
     
-    ///数据源元单位
+    ///数据源(元单位)
     public func gd_vol() -> String {
         var num = self //单位元
-        if abs(num) / 1000000000000 > 1 {
+        if abs(num) / 1000000000000 >= 1 {
             num = num / 1000000000000
             num = (num * 100.0).rounded()/100.0
             return String.init(format: "%.2f万亿", num)
-        } else if abs(num) / 100000000 > 1 {
+        } else if abs(num) / 100000000 >= 1 {
             num = num / 100000000
             num = (num * 100.0).rounded()/100.0
             return String.init(format: "%.2f亿", num)
-        } else if abs(num) / 10000 > 1 {
+        } else if abs(num) / 10000 >= 1 {
             num = num / 10000
             num = (num * 100.0).rounded()/100.0
             return String.init(format: "%.2f万", num)
@@ -64,30 +64,36 @@ extension Double {
         return String.init(format: "%.2f", num)
     }
     
-    ///数据源元单位
+    ///数据源(手单位)
     public func gd_tradeVolume() -> String {
         var num = self //单位股
         num = num / 100
-        return num.gd_volume()
+        return Int(num).gd_volume()
     }
     
-    ///数据源股单位
-    private func gd_volume() -> String {
-        var num = self //单位股
-        if abs(num) / 1000000000000 > 1 {
+    
+    
+}
+
+extension Int {
+    
+    ///数据源(股单位)
+    public func gd_volume() -> String {
+        var num = Double(self) //单位股
+        if abs(num) / 1000000000000 >= 1 {
             num = num / 1000000000000
             num = (num * 100.0).rounded()/100.0
             return String.init(format: "%.2f万亿", num)
-        } else if abs(num) / 100000000 > 1 {
+        } else if abs(num) / 100000000 >= 1 {
             num = num / 100000000
             num = (num * 100.0).rounded()/100.0
             return String.init(format: "%.2f亿", num)
-        } else if abs(num) / 10000 > 1 {
+        } else if abs(num) / 10000 >= 1 {
             num = num / 10000
             num = (num * 100.0).rounded()/100.0
             return String.init(format: "%.2f万", num)
         }
-        return String.init(format: "%.0f", num)
+        return String.init(format: "%d", self)
     }
     
 }
