@@ -125,6 +125,7 @@ extension UIView {
         hud.isUserInteractionEnabled = true
         hud.contentColor = UIColor.color(hex: "516471")
         hud.label.font = gd_BoldFont(17) //字体颜色
+        hud.label.numberOfLines = 0
         hud.backgroundView.backgroundColor = UIColor(white: 0, alpha: 0.4) //背景颜色
     }
     
