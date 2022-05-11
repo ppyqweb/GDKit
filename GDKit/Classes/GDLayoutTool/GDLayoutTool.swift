@@ -32,12 +32,12 @@ struct GDLayoutTool{
 
 
 ///适配手机和平板的宽度
-public func autoWidth(_ width: CGFloat) -> CGFloat {//
+public func autoWidth(_ width: CGFloat) -> CGFloat {
     return GDLayoutMethod.autoLayoutWidth(iPhoneWidth: width)
 }
 ///适配手机和平板的高度
 public func autoHeight(_ height: CGFloat) -> CGFloat {
-    return  GDLayoutMethod.autoLayoutWidth(iPhoneWidth: height)
+    return GDLayoutMethod.autoLayoutWidth(iPhoneWidth: height)
 }
 
 ///系统字号
