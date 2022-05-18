@@ -9,7 +9,7 @@
 import UIKit
 
 /// banner风格枚举
-enum GDBannerStyle {
+public enum GDBannerStyle {
     /// 未知样式
     case unknown
     /// 默认样式
@@ -25,9 +25,9 @@ enum GDBannerStyle {
     
 }
 
-class GDSwiftFlowLayout: UICollectionViewFlowLayout {
+open class GDSwiftFlowLayout: UICollectionViewFlowLayout {
     //MARK: - 构造方法
-    init(style: GDBannerStyle) {
+    public init(style: GDBannerStyle) {
         self.style = style
         super.init()
     }
@@ -36,13 +36,13 @@ class GDSwiftFlowLayout: UICollectionViewFlowLayout {
         NSLog("[%@ -- %@]",NSStringFromClass(self.classForCoder) ,#function);
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    public required init?(coder aDecoder: NSCoder) {
         self.style = .unknown
         super.init(coder: aDecoder)
     }
     
     //MARK: - Override
-    override func prepare() {
+    public override func prepare() {
         super.prepare()
         guard self.collectionView != nil else {
             assert(self.collectionView != nil, "error")
@@ -64,11 +64,11 @@ class GDSwiftFlowLayout: UICollectionViewFlowLayout {
         }
     }
     
-    override func shouldInvalidateLayout(forBoundsChange newBounds: CGRect) -> Bool {
+    public override func shouldInvalidateLayout(forBoundsChange newBounds: CGRect) -> Bool {
         return true
     }
     
-    override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
+    public override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
         var arr: [UICollectionViewLayoutAttributes]? = nil;
         switch self.style {
         case .normal: ()
@@ -176,7 +176,9 @@ extension GDSwiftFlowLayout {
         self.scrollDirection = .horizontal
         let width = self.collectionView!.frame.width
         let height = self.collectionView!.frame.height
-        self.itemSize = CGSize.init(width: width, height: height)
+        if self.itemSize.width == 0 {
+            self.itemSize = CGSize.init(width: width, height: height)
+        }
         self.minimumLineSpacing = self.itemSpace;
     }
     
@@ -185,7 +187,9 @@ extension GDSwiftFlowLayout {
         self.scrollDirection = .horizontal
         let height = self.collectionView!.frame.height
         let width = self.collectionView!.frame.width * self.itemWidthScale
-        self.itemSize = CGSize.init(width: width, height: height)
+        if self.itemSize.width == 0 {
+            self.itemSize = CGSize.init(width: width, height: height)
+        }
         self.minimumLineSpacing = self.itemSpace;
     }
     
@@ -194,7 +198,9 @@ extension GDSwiftFlowLayout {
         self.scrollDirection = .horizontal
         let height = self.collectionView!.frame.height
         let width = self.collectionView!.frame.width * self.itemWidthScale
-        self.itemSize = CGSize.init(width: width, height: height)
+        if self.itemSize.width == 0 {
+            self.itemSize = CGSize.init(width: width, height: height)
+        }
         self.minimumLineSpacing = self.itemSpace;
     }
     
@@ -203,7 +209,9 @@ extension GDSwiftFlowLayout {
         self.scrollDirection = .horizontal
         let height = self.collectionView!.frame.height - self.addHeight(self.collectionView!.frame.height)
         let width = self.collectionView!.frame.width * self.itemWidthScale
-        self.itemSize = CGSize.init(width: width, height: height / self.maxScale)
+        if self.itemSize.width == 0 {
+            self.itemSize = CGSize.init(width: width, height: height / self.maxScale)
+        }
         self.minimumLineSpacing = self.itemSpace;
         self.sectionInset = UIEdgeInsets.init(top: self.addHeight(self.collectionView!.frame.height) * 0.5, left: 0, bottom: 0, right: 0)
     }
@@ -213,7 +221,9 @@ extension GDSwiftFlowLayout {
         self.scrollDirection = .horizontal
         let height = self.collectionView!.frame.height
         let width = k_ScreenWidth
-        self.itemSize = CGSize.init(width: width, height: height)
+        if self.itemSize.width == 0 {
+            self.itemSize = CGSize.init(width: width, height: height)
+        }
         self.minimumLineSpacing = 0;
     }
 }
