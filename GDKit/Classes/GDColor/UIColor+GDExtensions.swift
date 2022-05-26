@@ -35,8 +35,8 @@ extension UIColor {
         )
     }
     
-    public func imageWithColor() ->UIImage {
-        let rect = CGRect(x: 0.0, y: 0.0, width: 1.0, height: 1.0)
+    public func imageWithColor(width: Double = 1.0, height: Double = 1.0) -> UIImage {
+        let rect = CGRect(x: 0.0, y: 0.0, width: width, height: height)
         UIGraphicsBeginImageContext(rect.size)
         let ctx = UIGraphicsGetCurrentContext()
         ctx!.setFillColor(self.cgColor)

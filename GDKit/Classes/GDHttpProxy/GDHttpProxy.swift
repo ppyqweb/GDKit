@@ -225,7 +225,7 @@ open class HttpProxy {
             //            JPUSHService.deleteAlias({ (iResCode, iAlias, seq) in
             //            }, seq: 2)
             //
-            //            JZY_NOTIFACTION_CENTER.post(name: NSNotification.Name(kAppDelegateNotifactionWillRootVCSwitch), object: self, userInfo: [:])
+            //            GD_NOTIFACTION_CENTER.post(name: NSNotification.Name(kAppDelegateNotifactionWillRootVCSwitch), object: self, userInfo: [:])
             break
         default:
             break

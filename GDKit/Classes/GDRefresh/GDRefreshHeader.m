@@ -208,7 +208,7 @@ static NSString *kRefreshPullingText = @"松开立即刷新";
 #pragma mark - 5、自定义函数 private methods
 
 //读取NSBundle中图片
-- (UIImage *)jzyi_imageNamed:(NSString *)name{
+- (UIImage *)gd_imageNamed:(NSString *)name{
     
     NSBundle *bundle = [NSBundle bundleForClass:[self class]];
     return [UIImage imageNamed:name inBundle:bundle compatibleWithTraitCollection:nil];
@@ -216,7 +216,7 @@ static NSString *kRefreshPullingText = @"松开立即刷新";
 }
 
 //读取NSBundle中图片
-- (UIImage *)jzyi_imageNamed:(NSString *)name bundleName:(NSString *)bundleName class:(Class)class{
+- (UIImage *)gd_imageNamed:(NSString *)name bundleName:(NSString *)bundleName class:(Class)class{
     
     NSBundle *bundle = [NSBundle bundleForClass:class];
     NSURL *url = [bundle URLForResource:bundleName withExtension:@"bundle"];
@@ -233,7 +233,7 @@ static NSString *kRefreshPullingText = @"松开立即刷新";
 //    NSMutableArray *mArray = [NSMutableArray array];
 //    for (NSInteger i = 40; i < 70; i++) {
 //
-//        [mArray addObject:[self jzyi_imageNamed:[NSString stringWithFormat:@"%@%02ld",kRefreshingImageName,(long)i]]];
+//        [mArray addObject:[self gd_imageNamed:[NSString stringWithFormat:@"%@%02ld",kRefreshingImageName,(long)i]]];
 //    }
     self.logoImageView.animationImages = self.lastArray;
     self.logoImageView.animationDuration = 1.5;

@@ -27,8 +27,8 @@
     self = [super init];
     if (self) {
         
-        _headerType = JZYRefreshHeaderTypeNormal;
-        _footerType = JZYRefreshFooterTypeBack;
+        _headerType = GDRefreshHeaderTypeNormal;
+        _footerType = GDRefreshFooterTypeBack;
     }
     return self;
 }

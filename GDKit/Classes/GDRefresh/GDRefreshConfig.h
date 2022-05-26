@@ -12,18 +12,18 @@
 NS_ASSUME_NONNULL_BEGIN
 
 // 头部类型
-typedef NS_ENUM(NSUInteger, JZYRefreshHeaderType) {
+typedef NS_ENUM(NSUInteger, GDRefreshHeaderType) {
     
-    JZYRefreshHeaderTypeNormal,
-    JZYRefreshHeaderTypeGif,
-    JZYRefreshHeaderTypeCustom
+    GDRefreshHeaderTypeNormal,
+    GDRefreshHeaderTypeGif,
+    GDRefreshHeaderTypeCustom
 };
 
 // 尾部类型
-typedef NS_ENUM(NSUInteger, JZYRefreshFooterType) {
+typedef NS_ENUM(NSUInteger, GDRefreshFooterType) {
     
-    JZYRefreshFooterTypeBack,
-    JZYRefreshFooterTypeAuto
+    GDRefreshFooterTypeBack,
+    GDRefreshFooterTypeAuto
 };
 
 @interface GDRefreshConfig : NSObject
@@ -33,8 +33,8 @@ typedef NS_ENUM(NSUInteger, JZYRefreshFooterType) {
 @property (nonatomic, readwrite, strong) NSArray <UIImage *> *frontArray; //!< 前部分
 @property (nonatomic, readwrite, strong) NSArray <UIImage *> *laterArray; //!< 后部分
 
-@property (nonatomic, readwrite, assign) JZYRefreshHeaderType headerType ; //!< 头部类型
-@property (nonatomic, readwrite, assign) JZYRefreshHeaderType footerType ; //!< 尾部类型
+@property (nonatomic, readwrite, assign) GDRefreshHeaderType headerType ; //!< 头部类型
+@property (nonatomic, readwrite, assign) GDRefreshHeaderType footerType ; //!< 尾部类型
 
 @end
 

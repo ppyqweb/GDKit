@@ -46,4 +46,5 @@ TODO: Add long description of the pod here.
   s.dependency 'HandyJSON'
   s.dependency 'MBProgressHUD'
   s.dependency 'MJRefresh'
+  s.dependency 'TZImagePickerController'
 end
