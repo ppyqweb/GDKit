@@ -10,6 +10,7 @@ import UIKit
 import Alamofire
 import HandyJSON
 import Accelerate
+import SwiftUI
 
 public let kGDNotifactionLogout = "kGDNotifactionLogout"
 
@@ -46,6 +47,17 @@ open class HttpProxy {
         } else {
             //json请求
             self.request(method: .post, url: url, parameters: parameters, encoding: JSONEncoding.default, success: success, failed: failed)
+        }
+    }
+    
+    public func put(url:String,parameters:Dictionary<String, Any>, formData: Bool = false, success: @escaping OnSuccessBlock, failed: @escaping OnErrorBlock){
+        
+        if formData == true {
+            //表单请求
+            self.formDataRequest(method: .put, url: url, parameters: parameters, success: success, failed: failed)
+        } else {
+            //json请求
+            self.request(method: .put, url: url, parameters: parameters, encoding: JSONEncoding.default, success: success, failed: failed)
         }
     }
     
@@ -90,9 +102,14 @@ open class HttpProxy {
         manager.upload(multipartFormData: { (mutilPartData) in
             ///添加表单 form-data到body
             for key in parameters.keys {
-                let value = parameters[key] as! String
-                let vData: Data = value.data(using: .utf8)!
-                mutilPartData.append(vData, withName: key)
+                var vData: Data?
+                if let value = parameters[key] as? String {
+                    vData = value.data(using: .utf8)!
+                    mutilPartData.append(vData!, withName: key)
+                } else {
+                    vData = parameters[key] as? Data
+                    mutilPartData.append(vData!, withName: key, fileName: "image.jpeg", mimeType: "image/jpeg")
+                }
             }
         }, to: url, usingThreshold: UInt64.init(), method: method, headers: headers).responseJSON { (response) in
             self.dataProcess(response: response, parameters: parameters, success: success, failed: failed)

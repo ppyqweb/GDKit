@@ -110,6 +110,7 @@ class GDSelectImageView: UIView {
                 DispatchQueue.main.async {
                     
                     let imagePicker = TZImagePickerController.init(maxImagesCount: self.maxNum, delegate: self)
+                    imagePicker?.modalPresentationStyle = .fullScreen
                     imagePicker?.allowPickingVideo = self.allowPickingVideo ?? true
                     imagePicker?.allowPickingOriginalPhoto = self.allowPickingOriginalPhoto ?? true
                     
