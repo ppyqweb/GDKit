@@ -8,13 +8,26 @@
 
 import Foundation
 
-class GDUserDefaults {
+open class GDUserDefaults {
     
     private static let instance = GDUserDefaults()
     static let sharedInstance: GDUserDefaults = {
         
         return instance
     }()
+    
+    
+    ///token
+    public class func setToken(_ token: String? ) {
+        UserDefaults.standard.set(token ?? "", forKey: "GDToken")
+        UserDefaults.standard.synchronize()
+    }
+    
+    public class func getToken() -> String? {
+        let token = UserDefaults.standard.object(forKey: "GDToken") as? String
+        return token
+    }
+    
     
     /**
      清除缓存

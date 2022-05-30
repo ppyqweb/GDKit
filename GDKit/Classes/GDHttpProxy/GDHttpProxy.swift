@@ -25,6 +25,7 @@ open class HttpProxy {
     let headers: HTTPHeaders = [
         "Content-Type": "application/json;charset=utf-8",
         "Accept": "application/json",
+        "Authorization": GDUserDefaults.getToken() ?? ""
         //"Authorization": UserDefaults.standard.string(forKey: k_Sso_Token) ?? ""
     ]
     
