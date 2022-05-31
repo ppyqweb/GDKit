@@ -27,4 +27,44 @@ extension NSAttributedString {
         return attributedString
     }
     
+    public class func gd_create(image: UIImage) -> NSAttributedString {
+        let textAttachment = NSTextAttachment()
+        textAttachment.image = image
+        let attrStringWithImage = NSAttributedString(attachment: textAttachment)
+        return attrStringWithImage
+    }
+    
+}
+
+
+extension NSAttributedString {
+    
+    /// 富文本转html字符串
+    public class func attriToStr(attri: NSAttributedString) -> String {
+        let tempDic: [NSAttributedString.DocumentAttributeKey : Any] =
+        [NSAttributedString.DocumentAttributeKey.documentType:
+            NSAttributedString.DocumentType.html,
+         NSAttributedString.DocumentAttributeKey.characterEncoding:
+            String.Encoding.utf8.rawValue]
+        do {
+            let htmlData = try attri.data(from: NSRange(location: 0, length: attri.length-1), documentAttributes: tempDic)
+            return String(data: htmlData, encoding: String.Encoding.utf8) ?? ""
+        } catch {
+            return ""
+        }
+    }
+    
+    /// 字符串转富文本
+    public class func strToAttri(htmlStr: String) -> NSAttributedString {
+        guard let data = htmlStr.data(using: String.Encoding.unicode) else {
+            return NSAttributedString()
+        }
+        do {
+            let attri = try NSAttributedString(data: data, options: [NSAttributedString.DocumentReadingOptionKey.documentType: NSAttributedString.DocumentType.html], documentAttributes: nil)
+            return attri
+        } catch {
+            return NSAttributedString()
+        }
+    }
+    
 }

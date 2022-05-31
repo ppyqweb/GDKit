@@ -21,6 +21,7 @@ open class GDUserDefaults {
     public class func setToken(_ token: String? ) {
         UserDefaults.standard.set(token ?? "", forKey: "GDToken")
         UserDefaults.standard.synchronize()
+        HttpProxy.shared.headers["Authorization"] = token ?? ""
     }
     
     public class func getToken() -> String? {

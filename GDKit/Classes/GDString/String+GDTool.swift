@@ -176,12 +176,12 @@ extension String {
         return boundingBox.size
     }
     
-    public var urlParameters: [String: String]? {
+    public var urlParameters: [String: String] {
         guard let url = URL(string: self) else {
-            return nil
+            return [:]
         }
         guard let components = URLComponents(url: url, resolvingAgainstBaseURL: true),
-              let queryItems = components.queryItems else { return nil }
+              let queryItems = components.queryItems else { return [:] }
         return queryItems.reduce(into: [String: String]()) { (result, item) in
             result[item.name] = item.value
         }

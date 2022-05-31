@@ -22,7 +22,7 @@ open class HttpProxy {
     /// 失败
     public typealias OnErrorBlock = (Error) -> Void
     
-    let headers: HTTPHeaders = [
+    var headers: HTTPHeaders = [
         "Content-Type": "application/json;charset=utf-8",
         "Accept": "application/json",
         "Authorization": GDUserDefaults.getToken() ?? ""
