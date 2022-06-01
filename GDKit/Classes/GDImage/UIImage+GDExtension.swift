@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 extension UIImage{
     
@@ -225,8 +226,10 @@ extension UIImage{
         return nil
     }
     
-    
-    func yl_scaleToSize(_ size:CGSize) -> UIImage {
+    /**
+     *  重设图片大小 固定大小
+     */
+    public func gd_scaleToSize(_ size:CGSize) -> UIImage {
     
         // 创建一个bitmap的context
         // 并把它设置成为当前正在使用的context
@@ -265,9 +268,9 @@ extension UIImage{
     }
     
     /**
-     *  重设图片大小
+     *  重设图片大小 *scale
      */
-    func reSizeImage(reSize:CGSize)->UIImage {
+    public func gd_reSizeImage(_ reSize:CGSize) -> UIImage {
         //UIGraphicsBeginImageContext(reSize);
         UIGraphicsBeginImageContextWithOptions(reSize,false,UIScreen.main.scale)
 //        self.drawInRect(CGRectMake(0, 0, reSize.width, reSize.height))
@@ -276,6 +279,32 @@ extension UIImage{
         UIGraphicsEndImageContext();
         return reSizeImage;
     }
+    
+    ///固定宽度缩放
+    public func gd_scaled(width: Double) -> UIImage {
+        let oldWidth = self.size.width
+        let scaleFactor = oldWidth / width
+        guard let cgImage = self.cgImage else {
+            return UIImage()
+        }
+        let newImage = UIImage(cgImage: cgImage, scale: scaleFactor, orientation: .up)
+        return newImage
+    }
+    
+    ///图片大于宽度才缩放
+    public func gd_scaled(maxWidth: Double) -> UIImage {
+        var newWidth = self.size.width
+        var newHeight = self.size.height
+        
+        let oldWidth = self.size.width
+        let scaleFactor = maxWidth / oldWidth
+        if oldWidth > maxWidth {
+            newWidth = maxWidth
+            newHeight = scaleFactor * self.size.height
+        }
+        return self.gd_reSizeImage(CGSize(width: newWidth, height: newHeight))
+    }
+    
 }
 
 

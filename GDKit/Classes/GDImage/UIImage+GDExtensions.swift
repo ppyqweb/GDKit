@@ -9,7 +9,9 @@
 import Foundation
 
 extension UIImage {
-    func compressImageOnlength(maxLength: Int) -> Data? {
+    
+    /// 压缩图片转data 1024*1024 = 1M
+    public func compressImageOnlength(_ maxLength: Int) -> Data? {
         
         guard let vData = self.jpegData(compressionQuality: 1) else { return nil }
         if vData.count < maxLength {
