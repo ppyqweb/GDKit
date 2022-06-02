@@ -45,6 +45,8 @@ open class GDMoreImageSelectView: UIView {
     
     public var addImage: String = ""
     
+    public var isHiddenAddImage: Bool = false
+    
     public weak var delegate: GDMoreImageSelectViewDelegate?
     
     
@@ -77,11 +79,26 @@ open class GDMoreImageSelectView: UIView {
         let gestures = UITapGestureRecognizer.init(target: self, action: #selector(clickImageView(gestures:)))
         iconImageView.addGestureRecognizer(gestures)
         self.imageMArray.append(iconImageView)
+        
+        for (i, imgView) in self.imageMArray.enumerated() {
+            if i == self.imageMArray.count - 1 {
+                imgView.isHidden = self.isHiddenAddImage
+            } else {
+                imgView.isHidden = false
+            }
+        }
         return iconImageView
     }
     
     // MARK: - event response 事件响应包括手势和按钮等
     //事件响应，包含手势、按钮、通知等等事件的处理
+    
+    ///点击添加图片按钮
+    public func clickImageView() {
+        if let tap = self.imageMArray.last?.gestureRecognizers?.first as? UITapGestureRecognizer {
+            self.clickImageView(gestures: tap)
+        }
+    }
     
     @objc func clickImageView(gestures: UITapGestureRecognizer) {
         
@@ -340,7 +357,7 @@ open class GDMoreImageSelectView: UIView {
         return imageView
     }()
     
-    lazy var browseImageView: GDBrowseImageView = {
+    public lazy var browseImageView: GDBrowseImageView = {
         let imageView = GDBrowseImageView.init(frame: CGRect.zero)
         imageView.deleteBlock = { (index:Int) in
             

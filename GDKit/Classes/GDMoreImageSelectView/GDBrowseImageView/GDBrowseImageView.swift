@@ -156,6 +156,11 @@ open class GDBrowseImageView: UIView {
             scrollView.setAnimationRect()
             browseScrollview.addSubview(scrollView)
             scrollView.touchBlock = { (view:GDBrowseImageScrollView) in
+                if view.initRect.width == 0 ||
+                    view.initRect.height == 0 {
+                    self.removeFromSuperview()
+                    return
+                }
                 let imageScrollView:GDBrowseImageScrollView = view
                 UIView.animate(withDuration: 0.25, animations: {
                     imageScrollView.rechangeInitRdct()
@@ -196,7 +201,7 @@ open class GDBrowseImageView: UIView {
     }()
     
     lazy var deleteButton: UIButton = {
-        let button = UIButton.gd_button(title: "删除", font: gd_Font(28), normalColor: UIColor.white)
+        let button = UIButton.gd_button(title: "删除", font: gd_Font(18), normalColor: UIColor.white)
         button.addTarget(self, action: #selector(clickedDeleteButton), for: .touchUpInside)
         button.layer.cornerRadius = 5
         button.clipsToBounds = true

@@ -19,7 +19,7 @@ class GDBrowseImageScrollView: UIScrollView {
     var imgSize:CGSize = CGSize(width: 0, height: 0)
     
     //缩放前大小
-    var initRect:CGRect = CGRect(x: 0, y: 0, width: 0, height: 0)
+    public var initRect:CGRect = CGRect(x: 0, y: 0, width: 0, height: 0)
     
     typealias block = (_ scrollView:GDBrowseImageScrollView)->()
     var touchBlock:block?

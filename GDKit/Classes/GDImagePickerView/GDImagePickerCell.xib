@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="GDImagePickerCell" customModule="GDKit" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="70" height="70"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="70" height="70"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_camera" translatesAutoresizingMaskIntoConstraints="NO" id="TcA-bJ-qmJ">
+                        <rect key="frame" x="0.0" y="0.0" width="70" height="70"/>
+                    </imageView>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="videoPlay_55_55" translatesAutoresizingMaskIntoConstraints="NO" id="joW-bW-aG6">
+                        <rect key="frame" x="10" y="10" width="50" height="50"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="50" id="Bo3-vw-88U"/>
+                            <constraint firstAttribute="height" constant="50" id="IlK-bf-L3Q"/>
+                        </constraints>
+                    </imageView>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="G5i-co-nyw">
+                        <rect key="frame" x="50" y="0.0" width="20" height="20"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="20" id="FUT-xG-pND"/>
+                            <constraint firstAttribute="height" constant="20" id="SeM-tc-eN1"/>
+                        </constraints>
+                        <state key="normal" image="delete_image_20_20"/>
+                        <connections>
+                            <action selector="deleBtnClick:" destination="gTV-IL-0wX" eventType="touchUpInside" id="ieV-pN-Nld"/>
+                        </connections>
+                    </button>
+                </subviews>
+            </view>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="G5i-co-nyw" secondAttribute="trailing" id="2Mg-H6-5AM"/>
+                <constraint firstItem="TcA-bJ-qmJ" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="Bzo-48-zeE"/>
+                <constraint firstItem="TcA-bJ-qmJ" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="NSH-20-nMF"/>
+                <constraint firstItem="G5i-co-nyw" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="VmE-wS-P7v"/>
+                <constraint firstAttribute="trailing" secondItem="TcA-bJ-qmJ" secondAttribute="trailing" id="eqJ-92-v8c"/>
+                <constraint firstItem="joW-bW-aG6" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="fY8-7q-csQ"/>
+                <constraint firstAttribute="bottom" secondItem="TcA-bJ-qmJ" secondAttribute="bottom" id="vqA-Bk-ewa"/>
+                <constraint firstItem="joW-bW-aG6" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" id="yp0-o8-Ufx"/>
+            </constraints>
+            <size key="customSize" width="64" height="60"/>
+            <connections>
+                <outlet property="deleBtn" destination="G5i-co-nyw" id="NrI-8Z-eHq"/>
+                <outlet property="playVideoImage" destination="joW-bW-aG6" id="pIg-oc-Yfs"/>
+                <outlet property="showImage" destination="TcA-bJ-qmJ" id="1DI-A7-ayt"/>
+            </connections>
+            <point key="canvasLocation" x="-504" y="-133.13343328335833"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="delete_image_20_20" width="20" height="20"/>
+        <image name="icon_camera" width="60" height="60"/>
+        <image name="videoPlay_55_55" width="55" height="55"/>
+    </resources>
+</document>
