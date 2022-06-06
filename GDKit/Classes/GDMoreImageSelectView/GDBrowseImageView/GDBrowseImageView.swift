@@ -151,7 +151,7 @@ open class GDBrowseImageView: UIView {
             ///初始化位置
             scrollView.setContent(rect: newFrame)
             ///改变位置
-            scrollView.setupCurrentCImage(image: imageView.image!)
+            scrollView.setupCurrentCImage(image: imageView.image ?? UIImage())
             ///动画大小
             scrollView.setAnimationRect()
             browseScrollview.addSubview(scrollView)

@@ -11,7 +11,7 @@ import UIKit
 
 extension NSAttributedString {
     
-    public class func gd_create(string str: String, font: UIFont? = nil, color textColor: UIColor? = nil, url: String? = nil) -> NSAttributedString {
+    public class func gd_create(string str: String, font: UIFont? = nil, color textColor: UIColor? = nil, url: String? = nil, lineSpacing: CGFloat? = nil) -> NSAttributedString {
         var attributes: [NSAttributedString.Key: Any] = [:]
         if let font = font {
             attributes[.font] = font
@@ -22,6 +22,14 @@ extension NSAttributedString {
         if let url = url {
             //添加链接文本
             attributes[.link] = url
+        }
+        if let lineSpacing = lineSpacing {
+            //格式调整
+            let style = NSMutableParagraphStyle()
+            /**调行间距*/
+            style.lineSpacing = lineSpacing
+            style.alignment = .left
+            attributes[.paragraphStyle] = style
         }
         let attributedString = NSAttributedString(string: str, attributes: attributes)
         return attributedString
@@ -65,6 +73,20 @@ extension NSAttributedString {
         } catch {
             return NSAttributedString()
         }
+    }
+    
+}
+
+
+extension NSMutableAttributedString {
+    
+    public func setStyle(lineSpacing: CGFloat) {
+        //格式调整
+        let style = NSMutableParagraphStyle()
+        /**调行间距*/
+        style.lineSpacing = lineSpacing
+        style.alignment = .left
+        self.addAttributes([NSAttributedString.Key.paragraphStyle : style], range: NSRange(location: 0, length: self.string.count))
     }
     
 }

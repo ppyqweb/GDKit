@@ -22,6 +22,8 @@ open class GDMoreImageSelectView: UIView {
     public var imageMArray:Array = Array<UIImageView>()
     private var showImageMArray:Array = Array<UIImage>()
     
+    public var isShowDelete: Bool = false
+    
     /// 上下左右间隙
     public var edges:UIEdgeInsets = UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15)
     
@@ -79,15 +81,43 @@ open class GDMoreImageSelectView: UIView {
         let gestures = UITapGestureRecognizer.init(target: self, action: #selector(clickImageView(gestures:)))
         iconImageView.addGestureRecognizer(gestures)
         self.imageMArray.append(iconImageView)
-        
+        iconImageView.layer.cornerRadius = 7
+        iconImageView.layer.masksToBounds = true
+        self.hiddenAddImage()
+        if isShowDelete == true {
+            self.addDeleteBtn(iconImageView)
+        }
+        return iconImageView
+    }
+    
+    func hiddenAddImage() {
+        if self.isHiddenAddImage == false {
+            return
+        }
         for (i, imgView) in self.imageMArray.enumerated() {
-            if i == self.imageMArray.count - 1 {
+            if i == self.imageMArray.count - 1,
+                self.isLastSelect == false {
                 imgView.isHidden = self.isHiddenAddImage
             } else {
                 imgView.isHidden = false
             }
         }
-        return iconImageView
+    }
+    
+    func addDeleteBtn(_ imageView: UIImageView) {
+        let width = 38.0.autoW
+        let deleteBtn = UIButton(frame: CGRect(x: imageView.frame.size.width-width, y: 0, width: width, height: width))
+        deleteBtn.setImage(UIImage(named: "delete_icon"), for: .normal)
+        deleteBtn.addTarget(self, action: #selector(onTouchDeleteBtnAction(_:)), for: .touchUpInside)
+        imageView.addSubview(deleteBtn)
+    }
+    
+    @objc func onTouchDeleteBtnAction(_ button: UIButton) {
+        guard let imageView = button.superview as? UIImageView else {
+            return
+        }
+        let index = self.getClickIndex(imageView: imageView)
+        deleteImageView(index: index)
     }
     
     // MARK: - event response 事件响应包括手势和按钮等
@@ -95,13 +125,16 @@ open class GDMoreImageSelectView: UIView {
     
     ///点击添加图片按钮
     public func clickImageView() {
+        if self.isLastSelect == true {
+            return
+        }
         if let tap = self.imageMArray.last?.gestureRecognizers?.first as? UITapGestureRecognizer {
             self.clickImageView(gestures: tap)
         }
     }
     
     @objc func clickImageView(gestures: UITapGestureRecognizer) {
-        
+        UIApplication.shared.keyWindow?.endEditing(true)
         let imageView = gestures.view
         
         self.currentSelectIndex = self.getClickIndex(imageView: imageView as! UIImageView)
@@ -171,6 +204,7 @@ open class GDMoreImageSelectView: UIView {
                     /// 最后一张选择了图片,删除了一张图，需要重新把加号添加回来
                     self.addSubview(self.addImageView())
                     isLastSelect = false
+                    self.hiddenAddImage()
                 }
                 
                 var mArray:Array = imageMArray
@@ -190,7 +224,6 @@ open class GDMoreImageSelectView: UIView {
             self.getSelfHeight()
             self.resultChange()
         }
-        
     }
     
     // MARK: - private method 业务无关的尽量弄成category，方便别人调用
@@ -258,7 +291,7 @@ open class GDMoreImageSelectView: UIView {
     func getSelfHeight() {
         
         let lastImageView = self.imageMArray.last
-        let totalHeight = lastImageView!.bottom + self.edges.bottom
+        let totalHeight = (lastImageView?.bottom ?? 0) + self.edges.bottom
         if self.heightBlock != nil {
             
             heightBlock!(totalHeight)
@@ -293,11 +326,13 @@ open class GDMoreImageSelectView: UIView {
                     }
                     else {
                         self.isLastSelect = true
+                        self.hiddenAddImage()
                     }
                 }
                 else {
                     
                     self.isLastSelect = true
+                    self.hiddenAddImage()
                 }
             }
             

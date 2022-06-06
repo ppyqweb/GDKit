@@ -164,14 +164,25 @@ extension String {
     ///
     /// - Parameters:
     ///   - font: 字体大小
+    ///   - lineSpacing: 行高
     ///   - constraintRect: 大小范围
     /// - Returns: 宽高
     public func gd_sizeWithConstrained(_ font: UIFont,
+                                       lineSpacing: CGFloat? = nil,
                                        constraintRect: CGSize = CGSize(width: CGFloat.greatestFiniteMagnitude, height: CGFloat.greatestFiniteMagnitude)) -> CGSize {
+        var attributes: [NSAttributedString.Key : Any] = [NSAttributedString.Key.font: font]
+        if let lineSpacing = lineSpacing {
+            //格式调整
+            let style = NSMutableParagraphStyle()
+            /**调行间距*/
+            style.lineSpacing = lineSpacing
+            style.alignment = .left
+            attributes[.paragraphStyle] = style
+        }
         let boundingBox = self.boundingRect(
             with: constraintRect,
             options: NSStringDrawingOptions.usesLineFragmentOrigin,
-            attributes: [NSAttributedString.Key.font: font],
+            attributes: attributes,
             context: nil)
         return boundingBox.size
     }
