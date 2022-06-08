@@ -140,6 +140,16 @@ open class GDPresentView: UIView {
         }
         
     }
+    
+    public class func gd_closeView() {
+        for view in  UIApplication.shared.keyWindow?.subviews ?? [] {
+            if let view = view as? GDPresentView {
+                view.gd_closeView()
+                break
+            }
+        }
+    }
+    
 }
 
 

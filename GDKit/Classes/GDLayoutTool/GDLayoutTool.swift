@@ -52,6 +52,22 @@ func autoBoldfontSize(_ font: CGFloat) -> UIFont {
 }
 
 extension Int {
+    public var autoW:CGFloat {
+        return autoWidth(CGFloat(self))
+    }
+    public var autoH:CGFloat {
+        return autoHeight(CGFloat(self))
+    }
+    public var systemFont:UIFont{
+        return autoFontSize(CGFloat(self))
+    }
+    public var boldFont:UIFont{
+        return autoBoldfontSize(CGFloat(self))
+    }
+}
+
+/*
+extension Int {
     public var autoW:Int {
         return Int(autoWidth(CGFloat(self)))
     }
@@ -65,6 +81,7 @@ extension Int {
         return autoBoldfontSize(CGFloat(self))
     }
 }
+*/
 
 extension Double {
     public var autoW:Double {
