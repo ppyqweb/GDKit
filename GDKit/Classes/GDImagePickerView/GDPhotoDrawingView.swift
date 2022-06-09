@@ -31,8 +31,8 @@ class GDPhotoDrawingView: UIView {
         UIGraphicsBeginImageContext(bounds.size)
         self.viewImage?.draw(in: self.bounds)
         
-        UIGraphicsGetCurrentContext()!.setLineCap(CGLineCap.round)
-        UIGraphicsGetCurrentContext()?.setStrokeColor(selectedColor!.cgColor)
+        UIGraphicsGetCurrentContext()?.setLineCap(CGLineCap.round)
+        UIGraphicsGetCurrentContext()?.setStrokeColor(selectedColor?.cgColor ?? UIColor().cgColor)
         UIGraphicsGetCurrentContext()?.setLineWidth(5)
         UIGraphicsGetCurrentContext()?.beginPath()
         UIGraphicsGetCurrentContext()?.move(to: CGPoint(x: previousPoint.x, y: previousPoint.y))
@@ -46,17 +46,22 @@ class GDPhotoDrawingView: UIView {
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        let p: CGPoint? = touches.first?.location(in: self)
-        previousPoint = p!
+        if let p: CGPoint = touches.first?.location(in: self) {
+            previousPoint = p
+        }
     }
     
     override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
-        currentPoint = (touches.first?.location(in: self))!
+        if let point = (touches.first?.location(in: self)) {
+            currentPoint = point
+        }
         drawLineNew()
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        currentPoint = (touches.first?.location(in: self))!
+        if let point = (touches.first?.location(in: self)) {
+            currentPoint = point
+        }
         drawLineNew()
     }
 

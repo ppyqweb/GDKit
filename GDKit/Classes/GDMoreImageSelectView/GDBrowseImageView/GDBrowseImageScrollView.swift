@@ -63,7 +63,7 @@ class GDBrowseImageScrollView: UIScrollView {
         
         if touchBlock != nil {
             
-            touchBlock!(self)
+            touchBlock?(self)
         }
     }
     

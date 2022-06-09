@@ -47,5 +47,5 @@ TODO: Add long description of the pod here.
   s.dependency 'MBProgressHUD'
   s.dependency 'MJRefresh'
   s.dependency 'TZImagePickerController'
-  s.dependency 'Kingfisher', '~>6.0.0'
+  s.dependency 'Kingfisher', '~>6.3.1'
 end

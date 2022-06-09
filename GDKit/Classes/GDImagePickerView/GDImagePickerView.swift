@@ -76,11 +76,19 @@ open class GDImagePickerView: UIView {
     
     @objc func tapProfileImage(gestureRecognizer: UITapGestureRecognizer?) {
         let tableGridImage = gestureRecognizer?.view
-        let index: Int? = tableGridImage?.tag
+        guard let index: Int = tableGridImage?.tag else {
+            return
+        }
         
-        let currentVC: UIViewController = self.getCurrentVC()!
-        let location:CGPoint = (gestureRecognizer?.location(in: currentVC.view))!
-        let locationForView:CGPoint = (gestureRecognizer?.location(in: tableGridImage))!
+        guard let currentVC: UIViewController = self.getCurrentVC() else {
+            return
+        }
+        guard let location:CGPoint = (gestureRecognizer?.location(in: currentVC.view)) else {
+            return
+        }
+        guard let locationForView:CGPoint = (gestureRecognizer?.location(in: tableGridImage)) else {
+            return
+        }
         
         var frameArray:[AnyHashable] = []
         
@@ -99,14 +107,14 @@ open class GDImagePickerView: UIView {
                 //spaceWidth = 0
             }
             
-            if i < index! {
-                locationForY = Int(location.y - locationForView.y) - (index!/photoNumber - i/photoNumber)*Int(GDImagePickerView.cellWidth) - (index!/photoNumber - i/photoNumber)*Int(GDImagePickerView.cellInterval)
+            if i < index {
+                locationForY = Int(location.y - locationForView.y) - (index/photoNumber - i/photoNumber)*Int(GDImagePickerView.cellWidth) - (index/photoNumber - i/photoNumber)*Int(GDImagePickerView.cellInterval)
                 
             }else if i == index{
                 
                 locationForY = Int(location.y - locationForView.y)
             }else{
-                locationForY = Int(location.y - locationForView.y) + (i/photoNumber - index!/photoNumber)*Int(GDImagePickerView.cellWidth) + (i/photoNumber - index!/photoNumber)*Int(GDImagePickerView.cellInterval)
+                locationForY = Int(location.y - locationForView.y) + (i/photoNumber - index/photoNumber)*Int(GDImagePickerView.cellWidth) + (i/photoNumber - index/photoNumber)*Int(GDImagePickerView.cellInterval)
             }
             
             locationForX = Int(titleWidth) + (i%photoNumber)*Int(GDImagePickerView.cellWidth) + (i%photoNumber + 1)*Int(GDImagePickerView.cellSpace) + 5
@@ -128,14 +136,14 @@ open class GDImagePickerView: UIView {
                 let image:UIImage
                 var imageView:UIImageView = UIImageView(image: UIImage(named: "default_photo_200_200"))
                 if selectItem.imageUrl != nil {
-                    if selectItem.image != nil {
-                        image = selectItem.image!
+                    if let selectItemImage = selectItem.image {
+                        image = selectItemImage
                     }
                     imageView.kf.setImage(with: selectItem.imageUrl, placeholder: UIImage(named: "default_photo_200_200"))
                 }else{
-                    if selectItem.image != nil {
+                    if let selectItemImage = selectItem.image {
                         
-                        image = selectItem.image!
+                        image = selectItemImage
                         imageView = UIImageView(image: image)
                     }
                 }
@@ -157,7 +165,7 @@ open class GDImagePickerView: UIView {
             
             if let imageViewArray = self.imageViewArray as? Array<UIImageView> {
                 browseImageView.showBrowseImageView()
-                browseImageView.refreshUIImageView(array: imageViewArray, index: index!)
+                browseImageView.refreshUIImageView(array: imageViewArray, index: index)
             }
             
         }
@@ -171,19 +179,25 @@ open class GDImagePickerView: UIView {
     
     @objc func tapForPlayVideo(gestureRecognizer: UITapGestureRecognizer?) {
         let tableGridImage = gestureRecognizer?.view
-        let index: Int? = tableGridImage?.tag
+        guard let index: Int = tableGridImage?.tag else {
+            return
+        }
         
-        let selectItem:GDImageOrVideoItem = self.selectItemsInfo[index!]
-        let currentVC: UIViewController = self.getCurrentVC()!
-        let videoURL = (selectItem.videoNetURL == nil) ? selectItem.videoURL: selectItem.videoNetURL
+        let selectItem:GDImageOrVideoItem = self.selectItemsInfo[index]
+        guard let currentVC: UIViewController = self.getCurrentVC() else {
+            return
+        }
+        guard let videoURL = (selectItem.videoNetURL == nil) ? selectItem.videoURL: selectItem.videoNetURL else {
+            return
+        }
         
         //定义一个视频播放器，通过本地文件路径初始化
-        let player = AVPlayer(url: videoURL!)
+        let player = AVPlayer(url: videoURL)
         let playerViewController = AVPlayerViewController()
         playerViewController.player = player
         playerViewController.modalPresentationStyle = .fullScreen
         currentVC.present(playerViewController, animated: true) {
-            playerViewController.player!.play()
+            playerViewController.player?.play()
         }
     }
     
@@ -405,57 +419,57 @@ extension GDImagePickerView:UICollectionViewDelegate,UICollectionViewDataSource,
     
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as? GDImagePickerCell
-        cell?.delegate = self
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as? GDImagePickerCell ?? GDImagePickerCell()
+        cell.delegate = self
         
         if (indexPath.row == selectItemsInfo.count) &&  selectItemsInfo.count < totalNum {
-            cell?.showImage.image = UIImage(named: "icon_camera")
-            cell?.deleBtn.isHidden = true
-            cell?.playVideoImage.isHidden = true
+            cell.showImage.image = UIImage(named: "icon_camera")
+            cell.deleBtn.isHidden = true
+            cell.playVideoImage.isHidden = true
         }else{
             let selectItem:GDImageOrVideoItem = selectItemsInfo[indexPath.item]
             var image:UIImage?
             if selectItem.selectType == GDSelectItemType.selectImage{
                 image = selectItem.image
                 
-                cell?.playVideoImage.isHidden = true
+                cell.playVideoImage.isHidden = true
             }else{
                 if selectItem.videoNetURL != nil {
                     image = UIImage(named: "default_photo_200_200")
                 }else{
                     image = self.thumbnailImage(forVideo: selectItem.videoURL)
                 }
-                cell?.playVideoImage.isHidden = false
+                cell.playVideoImage.isHidden = false
             }
             
-            cell?.deleBtn.isHidden = false
+            cell.deleBtn.isHidden = false
             if pickerViewType == GDImagePickerViewType.onlyShow{
-                cell?.deleBtn.isHidden = true
+                cell.deleBtn.isHidden = true
             }
             
             if image == nil {
                 image = UIImage(named: "default_photo_200_200")
             }
             if selectItem.imageUrl != nil {
-                cell?.showImage.kf.setImage(with: selectItem.imageUrl)
-                cell?.showImage.kf.setImage(with: selectItem.imageUrl, placeholder: UIImage(named: "default_photo_200_200"))
+                cell.showImage.kf.setImage(with: selectItem.imageUrl)
+                cell.showImage.kf.setImage(with: selectItem.imageUrl, placeholder: UIImage(named: "default_photo_200_200"))
             }else{
-                cell?.showImage.image = image
+                cell.showImage.image = image
             }
-            cell?.deleBtn.tag = indexPath.item
+            cell.deleBtn.tag = indexPath.item
             
             
             //用于图片预览
             if selectItem.selectType == GDSelectItemType.selectImage{
                 
-                let showImage:CGRect = (cell?.convert((cell?.frame)!, to:UIApplication.shared.delegate?.window!))!
+                let showImage:CGRect = (cell.convert((cell.frame), to:UIApplication.shared.delegate?.window!))
                 saveWindowFrame(withOriginalFrame: (showImage))
                 
                 if selectItem.imageUrl == nil {
                     imageNameArray.append(indexPath.row)
                     imageNameArray =  imageNameArray.removingDuplicates()
                 }else{
-                    imageNameArray.append(selectItem.imageUrl!)
+                    imageNameArray.append(selectItem.imageUrl)
                 }
             }
             
@@ -464,18 +478,18 @@ extension GDImagePickerView:UICollectionViewDelegate,UICollectionViewDataSource,
         //添加图片cell点击事件
         let singleTap = UITapGestureRecognizer(target: self, action: #selector(self.tapProfileImage(gestureRecognizer:)))
         singleTap.numberOfTapsRequired = 1
-        cell?.showImage.isUserInteractionEnabled = true
-        cell?.showImage.tag = indexPath.item
-        cell?.showImage.addGestureRecognizer(singleTap)
+        cell.showImage.isUserInteractionEnabled = true
+        cell.showImage.tag = indexPath.item
+        cell.showImage.addGestureRecognizer(singleTap)
         
         // 添加播放视频点击事件
         let playvideoTap = UITapGestureRecognizer(target: self, action: #selector(self.tapForPlayVideo(gestureRecognizer:)))
         playvideoTap.numberOfTapsRequired = 1
-        cell?.playVideoImage.isUserInteractionEnabled = true
-        cell?.playVideoImage.tag = indexPath.item
-        cell?.playVideoImage.addGestureRecognizer(playvideoTap)
+        cell.playVideoImage.isUserInteractionEnabled = true
+        cell.playVideoImage.tag = indexPath.item
+        cell.playVideoImage.addGestureRecognizer(playvideoTap)
         
-        return cell!
+        return cell
     }
     
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -502,7 +516,7 @@ extension GDImagePickerView:UICollectionViewDelegate,UICollectionViewDataSource,
         self.imageNameArray.removeAll()
         self.imageViewFrameArray.removeAll()
         if self.deleteMediasAt != nil {
-            self.deleteMediasAt!(index)
+            self.deleteMediasAt?(index)
         }
         self.pickerCollectionView.reloadData()
         

@@ -47,7 +47,7 @@ class GDSelectImageView: UIView {
         isUserEdit = true
         scale = 2
         maxNum = 1
-        keyVC = UIApplication.shared.keyWindow!.rootViewController!
+        keyVC = UIApplication.shared.keyWindow?.rootViewController
         self.backgroundColor = UIColor.black.withAlphaComponent(0.4)
         
     }
@@ -109,12 +109,14 @@ class GDSelectImageView: UIView {
                 
                 DispatchQueue.main.async {
                     
-                    let imagePicker = TZImagePickerController.init(maxImagesCount: self.maxNum, delegate: self)
-                    imagePicker?.modalPresentationStyle = .fullScreen
-                    imagePicker?.allowPickingVideo = self.allowPickingVideo ?? true
-                    imagePicker?.allowPickingOriginalPhoto = self.allowPickingOriginalPhoto ?? true
+                    guard let imagePicker = TZImagePickerController.init(maxImagesCount: self.maxNum, delegate: self) else {
+                        return
+                    }
+                    imagePicker.modalPresentationStyle = .fullScreen
+                    imagePicker.allowPickingVideo = self.allowPickingVideo ?? true
+                    imagePicker.allowPickingOriginalPhoto = self.allowPickingOriginalPhoto ?? true
                     
-                    self.keyVC?.present(imagePicker!, animated: true, completion: nil)
+                    self.keyVC?.present(imagePicker, animated: true, completion: nil)
                 }
             }
             else {
@@ -138,8 +140,9 @@ class GDSelectImageView: UIView {
     //没有暴露给外面调用的方法。
     
     func pushSystemSet(isCamera:Bool) {
-        
-        UIApplication.shared.openURL(URL.init(string: UIApplication.openSettingsURLString)!)
+        if let url = URL.init(string: UIApplication.openSettingsURLString) {
+            UIApplication.shared.openURL(url)
+        }
     }
     
     // MARK: - push or pop 控制器
@@ -194,7 +197,7 @@ extension GDSelectImageView: UIImagePickerControllerDelegate,UINavigationControl
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         
         picker.dismiss(animated: true, completion: nil)
-        var imagePickerc = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
+        var imagePickerc = info[UIImagePickerController.InfoKey.originalImage] as? UIImage ?? UIImage()
         
         var TW = imagePickerc.size.width
         var TH = imagePickerc.size.height
@@ -232,7 +235,9 @@ extension GDSelectImageView: UIImagePickerControllerDelegate,UINavigationControl
          */
         UIGraphicsBeginImageContextWithOptions(rect.size, false, 0)
         imagePickerc.draw(in: rect)
-        imagePickerc = UIGraphicsGetImageFromCurrentImageContext()!
+        guard let imagePickerc = UIGraphicsGetImageFromCurrentImageContext() else {
+            return
+        }
         UIGraphicsEndImageContext()
         
         if self.delegate != nil {
@@ -240,7 +245,7 @@ extension GDSelectImageView: UIImagePickerControllerDelegate,UINavigationControl
             self.delegate?.gd_selectImageView(view: self, imageArray: [imagePickerc])
         }
     }
-    func imagePickerController(_ picker: TZImagePickerController!, didFinishPickingPhotos photos: [UIImage]!, sourceAssets assets: [Any]!, isSelectOriginalPhoto: Bool) {
+    func imagePickerController(_ picker: TZImagePickerController, didFinishPickingPhotos photos: [UIImage], sourceAssets assets: [Any], isSelectOriginalPhoto: Bool) {
         
         if self.delegate != nil {
             

@@ -137,7 +137,7 @@ open class GDMoreImageSelectView: UIView {
         UIApplication.shared.keyWindow?.endEditing(true)
         let imageView = gestures.view
         
-        self.currentSelectIndex = self.getClickIndex(imageView: imageView as! UIImageView)
+        self.currentSelectIndex = self.getClickIndex(imageView: imageView as? UIImageView ?? UIImageView())
         if currentSelectIndex == imageMArray.count - 1 {
             /// 添加图片
             if isLastSelect {
@@ -268,15 +268,14 @@ open class GDMoreImageSelectView: UIView {
     func getNextImageViewPoint(_ imageView: UIImageView?) -> CGPoint {
         var x: CGFloat = 0.0
         var y: CGFloat = 0.0
-        
-        if imageView != nil {
-            if imageView!.right + columnSpace + imageSize.width + edges.right < width {
+        if let imageView = imageView {
+            if imageView.right + columnSpace + imageSize.width + edges.right < width {
                 //未超出最右边
-                x = imageView!.right + columnSpace
-                y = imageView!.top
+                x = imageView.right + columnSpace
+                y = imageView.top
             } else {
                 x = edges.left
-                y = imageView!.bottom + rowSpace
+                y = imageView.bottom + rowSpace
             }
         } else {
             x = edges.left
@@ -294,7 +293,7 @@ open class GDMoreImageSelectView: UIView {
         let totalHeight = (lastImageView?.bottom ?? 0) + self.edges.bottom
         if self.heightBlock != nil {
             
-            heightBlock!(totalHeight)
+            heightBlock?(totalHeight)
         }
     }
     
@@ -316,7 +315,7 @@ open class GDMoreImageSelectView: UIView {
                 if index < self.maxImageCount {
                     
                     let imageView:UIImageView = self.imageMArray[index]
-                    let image:UIImage = imageArray[index - first] as! UIImage
+                    let image:UIImage = imageArray[index - first] as? UIImage ?? UIImage()
                     
                     imageView.image = image
                     
@@ -352,7 +351,7 @@ open class GDMoreImageSelectView: UIView {
                 continue
             }
             let imageview = self.imageMArray[index]
-            mArray.append(imageview.image!)
+            mArray.append(imageview.image ?? UIImage())
         }
         
         if self.delegate != nil {

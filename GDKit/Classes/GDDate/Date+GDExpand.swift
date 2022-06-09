@@ -45,7 +45,7 @@ extension Date {
             
             let comps = calendar.dateComponents([Calendar.Component.year], from: requestDate, to: Date())
             
-            if comps.year! >= 1 {
+            if let year = comps.year, year >= 1 {
                 formatterString = "yyyy-" + formatterString
             }
         }

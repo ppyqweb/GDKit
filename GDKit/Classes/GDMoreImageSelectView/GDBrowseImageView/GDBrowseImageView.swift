@@ -81,7 +81,7 @@ open class GDBrowseImageView: UIView {
         
         if deleteBlock != nil {
             
-            deleteBlock!(currentPage)
+            deleteBlock?(currentPage)
         }
     }
     

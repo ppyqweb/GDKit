@@ -50,8 +50,11 @@ open class GDImageOrVideoItem: NSObject {
     public init(imagePath: String?, isRemoveFile: Bool) {
         super.init()
         self.selectType = GDSelectItemType.selectImage
-        image = UIImage(contentsOfFile: getFilePath(fileName: "images/\(String(describing: imagePath!.last))")!)
-        imageFileName = "images/\(String(describing: imagePath!.last))"
+        guard let imagePath = imagePath else {
+            return
+        }
+        image = UIImage(contentsOfFile: getFilePath(fileName: "images/\(String(describing: imagePath.last))") ?? "")
+        imageFileName = "images/\(String(describing: imagePath.last))"
         isRemoveFileWhenDelete = isRemoveFile
     }
     
@@ -118,8 +121,10 @@ open class GDImageOrVideoItem: NSObject {
     }
     
     public func getNewestURL(url: URL?) -> URL? {
-        let path = getFilePath(fileName: "videos/\(String(describing: url?.path.last))")
-        let newUrl = URL(fileURLWithPath: path!)
+        guard let path = getFilePath(fileName: "videos/\(String(describing: url?.path.last))") else {
+            return nil
+        }
+        let newUrl = URL(fileURLWithPath: path)
         return newUrl
     }
 }

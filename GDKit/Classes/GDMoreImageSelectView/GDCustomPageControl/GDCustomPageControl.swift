@@ -42,7 +42,7 @@ class GDCustomPageControl: UIView {
     /// 选中时颜色
     var currentPageIndicatorTintColor:UIColor = .red
     /// 位置
-    var location:GDCustomPageControlType = GDCustomPageControlType(rawValue: GDCustomPageControlType.Left.rawValue)!
+    var location:GDCustomPageControlType = GDCustomPageControlType(rawValue: GDCustomPageControlType.Left.rawValue) ?? .Left
     
     
     
@@ -93,7 +93,7 @@ class GDCustomPageControl: UIView {
         
         currentPage = page;
         
-        let button:UIButton = self.viewWithTag(buttonTag + currentPage) as! UIButton
+        let button:UIButton = self.viewWithTag(buttonTag + currentPage) as? UIButton ?? UIButton()
         self.clickeDot(button: button)
         
     }

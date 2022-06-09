@@ -21,7 +21,7 @@ extension String {
     
     //把常规字符串"like this" 转义成url编码的"like%20this"字符串:
     var urlEscaped: String {
-        return addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!
+        return addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) ?? ""
     }
 }
 
@@ -53,22 +53,24 @@ extension NSObject {
         
     /// 获取视频的某一帧图片
     func thumbnailImage(forVideo videoURL: URL?) -> UIImage? {
-        
-        if !(videoURL?.isFileURL)! {
-            //默认封面图
-            return UIImage(named: "default_photo_200_200")!
+        guard let videoURL = videoURL else {
+            return nil
         }
-        let aset = AVURLAsset(url: videoURL!, options: nil)
+        if !(videoURL.isFileURL) {
+            //默认封面图
+            return UIImage(named: "default_photo_200_200")
+        }
+        let aset = AVURLAsset(url: videoURL, options: nil)
         let assetImg = AVAssetImageGenerator(asset: aset)
         assetImg.appliesPreferredTrackTransform = true
         assetImg.apertureMode = AVAssetImageGenerator.ApertureMode.encodedPixels
         
-        let timeScale: CMTimeScale? = aset.duration.timescale //timescale为  fp
+        let timeScale: CMTimeScale = aset.duration.timescale //timescale为  fp
         do{
-            let cgimgref = try assetImg.copyCGImage(at: CMTimeMake(value: 1, timescale: timeScale!), actualTime: nil)
+            let cgimgref = try assetImg.copyCGImage(at: CMTimeMake(value: 1, timescale: timeScale), actualTime: nil)
             return UIImage(cgImage: cgimgref)
         }catch{
-            return UIImage(named: "default_photo_200_200")!
+            return UIImage(named: "default_photo_200_200")
         }
     }
     
@@ -76,7 +78,7 @@ extension NSObject {
         
 //        if url.isEmpty {
             //默认封面图
-            return UIImage(named: "default_photo_200_200")!
+            return UIImage(named: "default_photo_200_200") ?? UIImage()
 //        }
 
 //        let pathStr = NSString(string:url)

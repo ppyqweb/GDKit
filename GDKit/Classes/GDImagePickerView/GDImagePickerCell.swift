@@ -29,6 +29,6 @@ class GDImagePickerCell: UICollectionViewCell {
     }
 
     @IBAction func deleBtnClick(_ sender: Any) {
-        self.delegate?.deleButtonClick!(btn: sender)
+        self.delegate?.deleButtonClick?(btn: sender)
     }
 }
