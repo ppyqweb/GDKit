@@ -199,3 +199,20 @@ extension String {
     }
     
 }
+
+///正则 Regular
+extension String {
+    
+    ///获取http链接字符串的range
+    public func getHttpRangeOfString() -> [NSTextCheckingResult]? {
+        let regulaStr = "((http[s]{0,1}|ftp)://[a-zA-Z0-9\\.\\-]+\\.([a-zA-Z]{2,4})(:\\d+)?(/[a-zA-Z0-9\\.\\-~!@#$%^&*+?:_/=<>]*)?)|(www.[a-zA-Z0-9\\.\\-]+\\.([a-zA-Z]{2,4})(:\\d+)?(/[a-zA-Z0-9\\.\\-~!@#$%^&*+?:_/=<>]*)?)"
+        do {
+            let regex = try NSRegularExpression(pattern: regulaStr, options: .caseInsensitive)
+            let arrayOfAllMatches = regex.matches(in: self, options: NSRegularExpression.MatchingOptions.init(rawValue: 0), range: NSMakeRange(0, self.count))
+            return arrayOfAllMatches
+        } catch {
+            return nil
+        }
+    }
+    
+}
