@@ -115,7 +115,7 @@ class GDSelectImageView: UIView {
                     imagePicker.modalPresentationStyle = .fullScreen
                     imagePicker.allowPickingVideo = self.allowPickingVideo ?? true
                     imagePicker.allowPickingOriginalPhoto = self.allowPickingOriginalPhoto ?? true
-                    
+                    imagePicker.allowCameraLocation = false
                     self.keyVC?.present(imagePicker, animated: true, completion: nil)
                 }
             }
