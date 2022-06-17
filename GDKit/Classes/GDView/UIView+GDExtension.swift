@@ -48,10 +48,10 @@ extension UIView {
         layer.shadowPath = UIBezierPath.init(rect: shadowRect!).cgPath
     }
     
-    func setCorners(corners: UIRectCorner, radius: CGFloat) -> Void {
+    public func setCorners(corners: UIRectCorner, radius: CGFloat) -> Void {
         self.setCorners(corners: corners, radius: radius, rect: self.bounds)
     }
-    func setCorners(corners: UIRectCorner, radius: CGFloat, rect: CGRect) -> Void {
+    public func setCorners(corners: UIRectCorner, radius: CGFloat, rect: CGRect) -> Void {
         let path = UIBezierPath.init(roundedRect: rect, byRoundingCorners: corners , cornerRadii: CGSize.init(width: radius, height: radius))
         let layer = CAShapeLayer.init()
         layer.frame = self.bounds
