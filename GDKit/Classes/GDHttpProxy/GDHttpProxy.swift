@@ -182,6 +182,10 @@ open class HttpProxy {
             msg = "接口开发中"//SUCCESS
             break
             
+        case 10008:
+            msg = "非交易日"
+            break
+            
         case 99001:
             msg = "已执行操作，但在数据库操作没有返回成功结果"
             break
