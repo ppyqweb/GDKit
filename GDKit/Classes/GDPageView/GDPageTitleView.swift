@@ -198,6 +198,10 @@ open class GDPageTitleView: UIView {
         scrollLine.isHidden = isHidden
     }
     
+    public func isScrollEnabled(_ isScrollEnabled: Bool) {
+        scrollView.isScrollEnabled = isScrollEnabled
+    }
+    
     public func setNone() {
         self.titleLabelClick(UITapGestureRecognizer())
     }

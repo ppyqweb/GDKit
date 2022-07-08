@@ -132,7 +132,7 @@ extension UIViewController {
             newAppearance.shadowImage = UIImage()
             newAppearance.shadowColor = nil
             //newAppearance.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.red, NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20, weight: .medium)]
-            let appearance = UINavigationBar.appearance()
+            let appearance = self.navigationController?.navigationBar ?? UINavigationBar.appearance()
             appearance.standardAppearance = newAppearance
             appearance.scrollEdgeAppearance = appearance.standardAppearance
         }
