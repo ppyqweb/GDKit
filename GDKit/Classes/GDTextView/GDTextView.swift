@@ -66,7 +66,8 @@ open class GDTextView: UITextView {
     
     public override func layoutSubviews() {
         super.layoutSubviews()
-        self.placeholderLabel.frame = CGRect(x: 5, y: 8, width: self.frame.width - 2 * 5, height: 0)
+        self.placeholderLabel.frame = CGRect(x: self.textContainerInset.left + 5, y: self.textContainerInset.top, width: self.frame.width - (self.textContainerInset.left + 5) - (self.textContainerInset.right + 5), height: 0)
+        //self.placeholderLabel.frame = CGRect(x: 5, y: 8, width: self.frame.width - 2 * 5, height: 0)
         self.placeholderLabel.sizeToFit()
     }
     
