@@ -110,6 +110,10 @@ extension CGFloat {
     public var boldFont:UIFont{
         return autoBoldfontSize(self)
     }
+    //字体高度
+    public var fontHeight: CGFloat {
+        return self * 1.193359375
+    }
 }
 extension Float {
     public var autoW:Float {

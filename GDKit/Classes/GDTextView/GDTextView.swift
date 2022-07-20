@@ -8,6 +8,12 @@
 
 import UIKit
 
+// height = font * 1.193359375
+
+//默认数据
+//textView.textContainer.lineFragmentPadding = 5
+//textView.textContainerInset = UIEdgeInsets(top: 8, left: 0, bottom: 8, right: 0)
+
 open class GDTextView: UITextView {
     
     // MARK: - constant 常量
@@ -82,9 +88,9 @@ open class GDTextView: UITextView {
     
     func setupDefautl() {
         // 设置左右边距0
-        self.textContainer.lineFragmentPadding = 0
+        //self.textContainer.lineFragmentPadding = 0
         // 设置上下边距0
-        self.textContainerInset = .zero
+        //self.textContainerInset = .zero
         // 设置默认字体
         //self.font = gd_Font(14)
         // 设置默认颜色
