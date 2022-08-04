@@ -135,7 +135,7 @@ extension UIView {
     }
     
     // 获取当前控制器
-    public func getCurrentVC() -> UIViewController? {
+    func getCurrentVC() -> UIViewController? {
         
         var window: UIWindow? = (UIApplication.shared.delegate?.window)!
 //        let result = window?.rootViewController
