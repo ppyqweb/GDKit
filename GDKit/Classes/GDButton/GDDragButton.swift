@@ -14,6 +14,9 @@ open class GDDragButton: UIButton, UIGestureRecognizerDelegate {
     public typealias btnClosure = (_ btn : GDDragButton) ->()
     let ANIMATION_DURATION_TIME = 0.2
     
+    var time: Int = 0
+    var countDownTimer: Timer?
+    
     //是否可拖拽
     var draggable: Bool = true
     //是否自动吸附
@@ -39,6 +42,15 @@ open class GDDragButton: UIButton, UIGestureRecognizerDelegate {
             let tap                                            = UITapGestureRecognizer(target: self, action: #selector(doTapAction(_:)))
             tap.delegate                                       = self
             self.addGestureRecognizer(tap)
+        }
+    }
+    
+    open override var isHidden: Bool {
+        didSet {
+            if isHidden == false {
+                self.isHighlighted = true
+                self.countDown()
+            }
         }
     }
     
@@ -124,7 +136,7 @@ open class GDDragButton: UIButton, UIGestureRecognizerDelegate {
             self.isHighlighted = true
             break
         case .ended, .cancelled:
-            self.isHighlighted = false
+            self.countDown()
             doPanActionEnded()
             break
         default:
@@ -137,7 +149,6 @@ open class GDDragButton: UIButton, UIGestureRecognizerDelegate {
         if autoDocking == false {
             return
         }
-        
         let superviewFrame: CGRect = self.superview?.frame ?? CGRect.zero
         let frame = self.frame
         let middleX = superviewFrame.size.width / 2.0
@@ -168,6 +179,27 @@ open class GDDragButton: UIButton, UIGestureRecognizerDelegate {
         }
     }
     
+    func countDown() {
+        time = 3
+        closeTimer()
+        countDownTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(countDownAction), userInfo: nil, repeats: true)
+    }
+    
+    @objc func countDownAction() {
+        time -= 1
+        if time <= 0 {
+            self.isHighlighted = false
+            time = 0
+            closeTimer()
+        }
+    }
+    func closeTimer() {
+        if countDownTimer != nil {
+            countDownTimer?.invalidate()
+            countDownTimer = nil
+        }
+    }
+    
     //MARK: - 添加到keyWindow
     func addButtonToKeyWindow() {
         UIApplication.shared.keyWindow?.addSubview(self)
@@ -183,6 +215,10 @@ open class GDDragButton: UIButton, UIGestureRecognizerDelegate {
                 view.removeFromSuperview()
             }
         }
+    }
+    
+    deinit {
+        closeTimer()
     }
     
 }
