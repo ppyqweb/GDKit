@@ -117,7 +117,7 @@ extension GDPageContentView : UICollectionViewDataSource {
             view.removeFromSuperview()
         }
         
-        let childVc = childVcs[(indexPath as NSIndexPath).item]
+        let childVc = childVcs[safe: (indexPath as NSIndexPath).item]
         childVc.view.frame = cell.contentView.bounds
         cell.contentView.addSubview(childVc.view)
         

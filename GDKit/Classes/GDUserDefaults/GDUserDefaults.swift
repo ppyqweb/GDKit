@@ -36,7 +36,7 @@ open class GDUserDefaults {
     func clearCache(filePath:String) {
         
         ///读取文件路径
-        let documnetPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
+        let documnetPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[safe: 0]
         let path:String = URL(fileURLWithPath: documnetPath).appendingPathComponent(filePath).absoluteString
         //存在就删除
         if FileManager.default.fileExists(atPath: path) {
@@ -101,7 +101,7 @@ extension NSObject {
     
     ///读取文件路径
     func getFilePath(fileName: String) -> String? {
-        let documnetPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
+        let documnetPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[safe: 0]
         return URL(fileURLWithPath: documnetPath).appendingPathComponent(fileName).absoluteString
     }
     

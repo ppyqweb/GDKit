@@ -40,7 +40,7 @@ extension NSObject {
         get{
             let name =  type(of: self).description()
             if(name.contains(".")){
-                return name.components(separatedBy: ".")[1];
+                return name.components(separatedBy: ".")[safe: 1];
             }else{
                 return name;
             }

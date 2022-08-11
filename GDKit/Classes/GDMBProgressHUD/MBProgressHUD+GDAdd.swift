@@ -153,7 +153,7 @@ extension UIView {
         }
         
         if window?.subviews.count != nil {
-            let frontView: UIView? = window?.subviews[0]
+            let frontView: UIView? = window?.subviews[safe: 0]
             let nextResponder = frontView?.next
             if (nextResponder is UIViewController) {
                 result = nextResponder as? UIViewController

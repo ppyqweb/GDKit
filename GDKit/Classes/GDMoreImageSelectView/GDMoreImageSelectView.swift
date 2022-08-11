@@ -171,7 +171,7 @@ open class GDMoreImageSelectView: UIView {
         
         if index < imageMArray.count {
             //删除index位置图片
-            var imageView:Optional<UIImageView> = imageMArray[index]
+            var imageView:Optional<UIImageView> = imageMArray[safe: index]
             imageView?.removeFromSuperview()
             imageView = nil
             imageMArray.remove(at: index)
@@ -185,14 +185,14 @@ open class GDMoreImageSelectView: UIView {
                 for index in 0..<imageMArray.count {
                     
                     var point:CGPoint = CGPoint(x: 0, y: 0)
-                    let curImageView:UIImageView = imageMArray[index]
+                    let curImageView:UIImageView = imageMArray[safe: index]
                     if index == 0 {
                         
                         point = self.getNextImageViewPoint(nil)
                     }
                     else {
                         
-                        let imageView:UIImageView = imageMArray[index - 1]
+                        let imageView:UIImageView = imageMArray[safe: index - 1]
                         point = self.getNextImageViewPoint(imageView)
                     }
                     curImageView.left = point.x
@@ -314,8 +314,8 @@ open class GDMoreImageSelectView: UIView {
                 
                 if index < self.maxImageCount {
                     
-                    let imageView:UIImageView = self.imageMArray[index]
-                    let image:UIImage = imageArray[index - first] as? UIImage ?? UIImage()
+                    let imageView:UIImageView = self.imageMArray[safe: index]
+                    let image:UIImage = imageArray[safe: index - first] as? UIImage ?? UIImage()
                     
                     imageView.image = image
                     
@@ -350,7 +350,7 @@ open class GDMoreImageSelectView: UIView {
             if !self.isLastSelect && index == self.imageMArray.count - 1 {
                 continue
             }
-            let imageview = self.imageMArray[index]
+            let imageview = self.imageMArray[safe: index]
             mArray.append(imageview.image ?? UIImage())
         }
         

@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import MBProgressHUD
 
 
 /// 打印
@@ -20,6 +21,20 @@ public func printLog<T>(_ message: T, file: String = #file, method: String = #fu
 #if DEBUG
     //print("\((file as NSString).lastPathComponent)[\(line)],\(method):\(message)")
     print(message)
+#endif
+}
+
+/// 打印 + 吐司
+///
+/// - Parameters:
+///   - message: 打印内容
+///   - file: 所在文件
+///   - method: 所在方法
+///   - line: 所在行
+public func debugToast<T>(_ message: T, file: String = #file, method: String = #function, line: Int = #line) {
+#if DEBUG
+    MBProgressHUD.showText("\(message)")
+    print("\((file as NSString).lastPathComponent)[\(line)],\(method):\(message)")
 #endif
 }
 

@@ -144,7 +144,7 @@ open class GDBrowseImageView: UIView {
         pageController.refreshUI()
         
         for index in 0..<array.count {
-            let imageView:UIImageView = array[index]
+            let imageView:UIImageView = array[safe: index]
             let newFrame:CGRect = imageView.superview?.convert(imageView.frame, to: self) ?? CGRect(x: 0, y: 0, width: 0, height: 0)
             let scrollView:GDBrowseImageScrollView = GDBrowseImageScrollView.init(frame: CGRect(x: browseScrollview.width*CGFloat(index), y: 0, width: browseScrollview.width, height: browseScrollview.height))
             scrollView.tag = 12345+index

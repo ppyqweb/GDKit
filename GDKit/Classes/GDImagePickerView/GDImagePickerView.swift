@@ -132,7 +132,7 @@ open class GDImagePickerView: UIView {
             
             self.imageViewArray.removeAll()
             for i in 0..<selectItemsInfo.count {
-                let selectItem:GDImageOrVideoItem = selectItemsInfo[i]
+                let selectItem:GDImageOrVideoItem = selectItemsInfo[safe: i]
                 let image:UIImage
                 var imageView:UIImageView = UIImageView(image: UIImage(named: "default_photo_200_200"))
                 if selectItem.imageUrl != nil {
@@ -183,7 +183,7 @@ open class GDImagePickerView: UIView {
             return
         }
         
-        let selectItem:GDImageOrVideoItem = self.selectItemsInfo[index]
+        let selectItem:GDImageOrVideoItem = self.selectItemsInfo[safe: index]
         guard let currentVC: UIViewController = self.getCurrentVC() else {
             return
         }
@@ -427,7 +427,7 @@ extension GDImagePickerView:UICollectionViewDelegate,UICollectionViewDataSource,
             cell.deleBtn.isHidden = true
             cell.playVideoImage.isHidden = true
         }else{
-            let selectItem:GDImageOrVideoItem = selectItemsInfo[indexPath.item]
+            let selectItem:GDImageOrVideoItem = selectItemsInfo[safe: indexPath.item]
             var image:UIImage?
             if selectItem.selectType == GDSelectItemType.selectImage{
                 image = selectItem.image

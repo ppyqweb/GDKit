@@ -142,7 +142,7 @@ open class GDPageTitleView: UIView {
         self.scale = scale
         if let titleNormalColor = titleNormalColor,
             titleNormalColor.count == 3 {
-            self.titleNormalColor = (titleNormalColor[0],titleNormalColor[1],titleNormalColor[2])
+            self.titleNormalColor = (titleNormalColor[safe: 0],titleNormalColor[safe: 1],titleNormalColor[safe: 2])
         }else{
             self.titleNormalColor = kNormalColor
         }
@@ -150,7 +150,7 @@ open class GDPageTitleView: UIView {
         
         if let titleSelectColor = titleSelectColor,
             titleSelectColor.count == 3 {
-            self.titleSelectColor = (titleSelectColor[0],titleSelectColor[1],titleSelectColor[2])
+            self.titleSelectColor = (titleSelectColor[safe: 0],titleSelectColor[safe: 1],titleSelectColor[safe: 2])
         }else{
             self.titleSelectColor = kSelectColor
         }
@@ -158,14 +158,14 @@ open class GDPageTitleView: UIView {
         
         if let normalBackgroundColor = normalBackgroundColor,
             normalBackgroundColor.count == 3 {
-            self.normalBackgroundColor = (normalBackgroundColor[0],normalBackgroundColor[1],normalBackgroundColor[2])
+            self.normalBackgroundColor = (normalBackgroundColor[safe: 0],normalBackgroundColor[safe: 1],normalBackgroundColor[safe: 2])
         }else{
             self.normalBackgroundColor = kWhiteColor
         }
         
         if let selectBackgroundColor = selectBackgroundColor,
             selectBackgroundColor.count == 3 {
-            self.selectBackgroundColor = (selectBackgroundColor[0],selectBackgroundColor[1],selectBackgroundColor[2])
+            self.selectBackgroundColor = (selectBackgroundColor[safe: 0],selectBackgroundColor[safe: 1],selectBackgroundColor[safe: 2])
         }else{
             self.selectBackgroundColor = kWhiteColor
         }
@@ -217,7 +217,7 @@ open class GDPageTitleView: UIView {
         if titleLabels.count <= index {
             return
         }
-        let label: UILabel = titleLabels[index]
+        let label: UILabel = titleLabels[safe: index]
         label.text = title;
     }
     
@@ -302,7 +302,7 @@ extension GDPageTitleView {
         guard self.currentIndex < titleLabels.count else {
             return
         }
-        let firstLabel = titleLabels[self.currentIndex]
+        let firstLabel = titleLabels[safe: self.currentIndex]
         //        guard let firstLabel = titleLabels.first else { return }
         firstLabel.font = titleSelectFont
         firstLabel.textColor = UIColor(r: self.titleSelectColor.0, g: self.titleSelectColor.1, b: self.titleSelectColor.2)
@@ -325,7 +325,7 @@ extension GDPageTitleView {
         let currentLabel = tapGes.view as? UILabel ?? UILabel()
         
         // 2.获取之前的Label
-        let oldLabel = titleLabels[currentIndex]
+        let oldLabel = titleLabels[safe: currentIndex]
         
         
         // 1.如果是重复点击同一个Title,那么直接返回
@@ -389,8 +389,8 @@ extension GDPageTitleView {
         let maxScale = 1 + scale
         
         // 1.取出sourceLabel/targetLabel
-        let sourceLabel = titleLabels[sourceIndex]
-        let targetLabel = titleLabels[targetIndex]
+        let sourceLabel = titleLabels[safe: sourceIndex]
+        let targetLabel = titleLabels[safe: targetIndex]
         
         // 2.处理滑块的逻辑
         let moveTotalX = targetLabel.center.x - sourceLabel.center.x
