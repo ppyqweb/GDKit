@@ -123,5 +123,26 @@ extension UIView {
         }
         self.layer.addSublayer(gradientLayer)
     }
+
+    /// 绘制虚线
+    /// - Parameters:
+    ///   - lineLength: 长度
+    ///   - lineSpacing: 间隔长度
+    ///   - lineColor: 颜色
+    public func gd_drawDashLine(lineLength: Int, lineSpacing: Int, lineColor: UIColor) {
+        let shapeLayer = CAShapeLayer()
+        shapeLayer.bounds = self.bounds
+        shapeLayer.anchorPoint = CGPoint(x: 0, y: 0)
+        shapeLayer.strokeColor = lineColor.cgColor
+        shapeLayer.lineWidth = 1 //描边路径时使用的线宽。默认为1。
+        shapeLayer.lineJoin = CAShapeLayerLineJoin.round
+        shapeLayer.lineDashPattern = [NSNumber(value: lineLength),NSNumber(value: lineSpacing)]
+        let path = CGMutablePath()
+        path.move(to: CGPoint(x: 0, y: 0))
+        path.addLine(to: CGPoint(x: self.bounds.size.width, y: 0))
+        shapeLayer.path = path
+        self.layer.addSublayer(shapeLayer)
+    }
+    
     
 }
