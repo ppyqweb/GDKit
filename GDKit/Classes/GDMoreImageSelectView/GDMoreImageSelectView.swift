@@ -147,8 +147,10 @@ open class GDMoreImageSelectView: UIView {
                 browseImageView.refreshUIImageView(array: mArray, index: currentSelectIndex)
             }
             else {
-                
-                selectImageView.showView()
+                //相册
+                selectImageView.clickAlbum()
+                //拍照或相册
+                //selectImageView.showView()
             }
         }
         else {

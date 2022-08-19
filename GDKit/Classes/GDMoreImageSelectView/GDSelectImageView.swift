@@ -185,6 +185,11 @@ class GDSelectImageView: UIView {
             self.clickAlbum()
             printLog("点击相册选择")
         }))
+        //ipad使用，不加ipad上会崩溃
+        if let popoverController = alert.popoverPresentationController {
+            popoverController.sourceView = self
+            popoverController.sourceRect = self.bounds
+        }
         return alert
     }()
     
