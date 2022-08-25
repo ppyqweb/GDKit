@@ -92,6 +92,7 @@ open class HttpProxy {
     func request(method: HTTPMethod, url:String,parameters:Dictionary<String, Any>, encoding: ParameterEncoding, success: @escaping OnSuccessBlock, failed: @escaping OnErrorBlock) {
 
         manager.request(url, method: method, parameters: parameters, encoding: encoding, headers: headers).responseJSON { (response) in
+            //.responseDecodable(of: GDResultModel2.self) { response in //协议Decodable
             self.dataProcess(response: response, parameters: parameters, success: success, failed: failed)
         }
 

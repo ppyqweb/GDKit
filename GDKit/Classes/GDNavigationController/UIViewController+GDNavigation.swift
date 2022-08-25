@@ -13,7 +13,7 @@ extension UIViewController {
         self.navigationController?.navigationBar.isTranslucent = false
         self.navigationController?.setNavigationBarHidden(false, animated: true)
         
-        self.gd_setupNavigationAttributed()
+        self.gd_setupNavigationAttributed(UIColor.color(hex: "F7F7F7"))
         self.gd_setupTitleAttributed()
         self.gd_setupLeftButton(title: "", color: .black)
         self.gd_setupPopGesture()
@@ -22,14 +22,14 @@ extension UIViewController {
     
     
     ///设置导航条属性
-    func gd_setupNavigationAttributed() {
+    func gd_setupNavigationAttributed(_ color: UIColor = UIColor.white) {
         //设置状态栏
         //UIApplication.shared.statusBarStyle = .default
         //self.preferredStatusBarStyle = .default
         
-        self.navigationController?.navigationBar.barTintColor = .white
-        self.navigationController?.navigationBar.setBackgroundImage(UIColor.red.imageWithColor(), for: .default)
-        self.navigationController?.navigationBar.shadowImage = UIColor.blue.imageWithColor()
+        self.navigationController?.navigationBar.barTintColor = color
+        self.navigationController?.navigationBar.setBackgroundImage(color.imageWithColor(), for: .default)
+        self.navigationController?.navigationBar.shadowImage = color.imageWithColor()
     }
     
     
@@ -135,6 +135,8 @@ extension UIViewController {
             let appearance = self.navigationController?.navigationBar ?? UINavigationBar.appearance()
             appearance.standardAppearance = newAppearance
             appearance.scrollEdgeAppearance = appearance.standardAppearance
+        } else {
+            gd_setupNavigationAttributed(color)
         }
     }
     
