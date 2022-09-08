@@ -19,6 +19,7 @@ extension UITableViewCell {
             layer.path = path.cgPath
             self.layer.mask = layer
         } else if indexPath.row == 0 {
+            line?.isHidden = false
             let layer = CAShapeLayer()
             let path = UIBezierPath.init(roundedRect: self.bounds, byRoundingCorners: [.topLeft, .topRight], cornerRadii: CGSize(width: radius, height: radius))
             layer.path = path.cgPath
