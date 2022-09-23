@@ -39,7 +39,7 @@ extension Double {
     
     ///显示加减号
     public func gd_sign() -> String {
-        if self < 0 {
+        if self <= 0 {
             return ""
         } else {
             return "+"
