@@ -128,7 +128,7 @@ open class AlignedCollectionViewFlowLayout: UICollectionViewFlowLayout {
         
         // It's safe to force-unwrap as `.leading` and `.trailing` are covered
         // above and the `trivialMapping` dictionary contains all other keys.
-        return trivialMapping[horizontalAlignment]!
+        return trivialMapping[horizontalAlignment] ?? .left
     }
     
     /// The vertical axis with respect to which the cells are horizontally aligned.
@@ -322,7 +322,8 @@ open class AlignedCollectionViewFlowLayout: UICollectionViewFlowLayout {
     fileprivate func verticalAlignmentAxis(for currentLayoutAttributes: UICollectionViewLayoutAttributes) -> AlignmentAxis<VerticalAlignment> {
         let layoutAttributesInLine = layoutAttributes(forItemsInLineWith: currentLayoutAttributes)
         // It's okay to force-unwrap here because we pass a non-empty array.
-        return verticalAlignmentAxisForLine(with: layoutAttributesInLine)!
+        let axis = verticalAlignmentAxisForLine(with: layoutAttributesInLine) ?? AlignmentAxis(alignment: VerticalAlignment.top, position: 0)
+        return axis
     }
     
     /// Creates a deep copy of the passed array by copying all its items.
